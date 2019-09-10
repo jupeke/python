@@ -1,6 +1,6 @@
 import random
 
-#Declares and sets a variable
+#Declares and assign a value to the variable
 randNumb = round(random.random() * 100)
 
 for i in range(randNumb):
