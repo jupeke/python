@@ -1,3 +1,4 @@
+# Note: works well in python3 only!
 # Asks for a value with the question in parameter.
 finish = False
 while finish == False:
