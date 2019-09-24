@@ -2,6 +2,7 @@
 # Asks for a value with the question in parameter.
 finish = False
 while finish == False:
+    print()
     message = input("Give a message, please: ")
 
     # This way the input comes on its own row:
@@ -17,3 +18,4 @@ while finish == False:
     m = input("Want to try again (yes/no)? ")
     if (m != "yes"):
         finish = True
+    print()
