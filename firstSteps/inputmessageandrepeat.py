@@ -10,7 +10,7 @@ while finish == False:
 
     # Important: if ValueError, goes to except block.
     try:
-        number = int(input())
+        number = int(input())   # Error if input not good
         for i in range(number):
             print(str(i+1)+": ",message)
     except ValueError:
