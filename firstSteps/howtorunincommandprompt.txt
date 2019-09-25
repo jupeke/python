@@ -10,4 +10,4 @@ How to run python code in Command Prompt:
 
 532) C:\Program Files (x86)\?? helloWorld.py
 
-422) C:\Users\kerkkaju\Documents\WPy64-3740\python-3.7.4.amd64 helloWorld.py
+422) C:\Users\kerkkaju\Documents\WPy64-3740\python-3.7.4.amd64\python.exe helloWorld.py
