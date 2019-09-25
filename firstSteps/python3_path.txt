@@ -1,9 +1,0 @@
-Path to the folder containing my codes:
-C:\Users\kerkkaju\Documents\GitHub\Python
-
-Path to the folder containing python.exe:
-C:\Program Files (x86)\??
-
-How to run python code in Command Prompt:
--cd to the folder containing your code Files and type:
-C:\Program Files (x86)\?? [filename.py]
