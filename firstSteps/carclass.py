@@ -1,10 +1,10 @@
 class Car:
 
     # instance builder and variables
-    def __init__(self, name, color, massInKg):
+    def __init__(self, name, color, masskg):
         self.name = name
         self.color = color
-        self.mass = massInKg
+        self.mass = masskg
 
     # self refers to the current instance of the class.
     def desc (self):
@@ -21,10 +21,10 @@ car2.desc()
 
 # Class that herits the Car class:
 class SuperCar(Car):
-    def __init__(self, name, color, massInKg, vitesse):
+    def __init__(self, name, color, masskg, vitesse):
 
         # runs the init of the parent class:
-        Car.__init__(self, name, color, massInKg)
+        Car.__init__(self, name, color, masskg)
         self.vitesse = vitesse
 
     # overrides the method in Person class:
