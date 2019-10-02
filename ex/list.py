@@ -18,10 +18,21 @@ def printlist(mylist):
 
 # A real list to be printed:
 list1 = ["Jani", "Arto", "Mari", "Maija"]
+print("First element printed:")
+print(list1[0])
 print()
-print("Printed using print command:")
+print("Second last element printed:")
+print(list1[-2])
+print()
+print("Last element printed, method 1:")
+print(list1[-1])
+print()
+print("Last element printed, method 2:")
+print(list1[len(list1)-1])
+print()
+print("List printed using print command:")
 print()
 print(list1)
 print()
-print("Printed using a custom printlist function:")
+print("List printed using a custom printlist function:")
 printlist(list1)
