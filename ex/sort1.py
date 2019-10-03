@@ -1,4 +1,4 @@
-import utils
+
 
 # Returns a new list with the elements of list
 # sorted in ascending order. This is one the
@@ -16,12 +16,7 @@ def sort1(unsortedlist):
         unsortedlist.remove(smallest)
     return ordererlist
 
+import utils
 mylist = utils.randomnumberlist(30, 20)
 
-print("The original list:")
-print(mylist)
-ordered1 = sort1(mylist)
-print("The original list after using sort1:")
-print(mylist)
-print("The list sorted by method sort1:")
-print(ordered1)
+utils.test_sort1(mylist)
