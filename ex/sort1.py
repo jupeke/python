@@ -20,17 +20,23 @@ def sort1(unsortedlist):
     return ordererlist
 
 import utils
-import timeit
-mylist = utils.randomnumberlist(30, 20)
+from time import perf_counter
+
+mylist = utils.randomnumberlist(3000, 100)
 
 # Tests a sort function named "sort1"
 print()
-print("The original list:")
-print(mylist)
+#print("The original list:")
+#print(mylist)
 print()
+
+t_start = perf_counter()
 ordered1 = sort1(mylist)
-print("The original list after using sort1:")
-print(mylist)
+t_end = perf_counter()
+elapsed_time = t_end-t_start
+
+#print("The list sorted by method sort1:")
+#print(ordered1)
 print()
-print("The list sorted by method sort1:")
-print(ordered1)
+print("time elapsed: ",elapsed_time)
+print()
