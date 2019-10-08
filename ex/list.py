@@ -1,5 +1,3 @@
-# Note: works well in python3 only!
-
 # A function that prints the content of a list:
 def printlist(mylist):
     formatted_content = ""
