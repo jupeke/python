@@ -15,13 +15,9 @@ print(list1[-1])
 print() # An empty line.
 
 print("Elements preceded by a number:")
-
 counter = 1
 for elem in list1:
-    print (counter,":", elem)
-    print (str(counter) + ": " + elem)
-    print ("{}: {}".format(counter, elem))
-
+    print (counter,":", elem)   # Method 1
+    print (str(counter) + ": " + elem) # Method 2
+    print ("{}: {}".format(counter, elem)) # Method 3
     counter = counter + 1
-
-print() # An empty line.
