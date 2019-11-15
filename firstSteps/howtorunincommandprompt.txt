@@ -1,5 +1,6 @@
 Path to the folder containing my codes:
 C:\Users\kerkkaju\Documents\GitHub\Python\firstSteps
+C:\Users\kerkkaju\Documents\GitHub\Python\ex
 
 Path to the folder containing python.exe:
 532) C:\Program Files (x86)\??
