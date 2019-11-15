@@ -2,6 +2,7 @@ Path to the folder containing my codes:
 C:\Users\kerkkaju\Documents\GitHub\Python\firstSteps
 C:\Users\kerkkaju\Documents\GitHub\Python\ex
 
+
 Path to the folder containing python.exe:
 532) C:\Program Files (x86)\??
 422) C:\Users\kerkkaju\Documents\WPy64-3740\python-3.7.4.amd64
@@ -9,6 +10,7 @@ Path to the folder containing python.exe:
 How to run python code in Command Prompt:
 -cd to the folder containing your code files and type (note the quotes!):
 
-532) \C:\"Program Files (x86)"\Python37-32\python.exe helloWorld.py
+532) C:\"Program Files (x86)"\Python37-32\python.exe helloWorld.py
+
 
 422) C:\Users\kerkkaju\Documents\WPy64-3740\python-3.7.4.amd64\python.exe helloWorld.py
