@@ -1,4 +1,5 @@
-# Returns a list of integers found in the string or an empty list if no found.
+# Returns a list of integers found in the given string or an empty list if no
+# integer found.
 def get_ints_of_string(mystr):
     ints = list()
     strlen = len(mystr)
