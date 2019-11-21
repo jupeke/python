@@ -30,15 +30,7 @@ def functionname(function):
     return "not working"
 #print(functionname(repeat("ih",3)))
 
-# Tests a sort function named "sort1"
-def test_sort1(list_orig):
-    print()
-    print("The original list:")
-    print(list_orig)
-    print()
-    ordered1 = sort1(list_orig)
-    print("The original list after using sort1:")
-    print(list_orig)
-    print()
-    print("The list sorted by method sort1:")
-    print(ordered1)
+# Returns a list of integers found in the string or an empty list if no found.
+def get_ints_of_string(str):
+    ints = list()
+    return ints
