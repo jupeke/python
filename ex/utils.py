@@ -33,4 +33,18 @@ def functionname(function):
 # Returns a list of integers found in the string or an empty list if no found.
 def get_ints_of_string(str):
     ints = list()
+    strlen = len(str)
+    for i in range(strlen):
+        candidate
+        for j in range(strlen):
+            slice = str[i:j]
+            if(slice.isdecimal())
+
     return ints
+
+def test_get_ints_of_string():
+    strs = ["", "1","12345", "a1a", "a1a2j","a1a123h","113f222","12a31h42a555"]
+    for str in strs:
+        print("Testing string","\""+str+"\",","result:",get_ints_of_string(str))
+
+test_get_ints_of_string()
