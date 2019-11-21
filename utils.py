@@ -40,7 +40,7 @@ def get_ints_of_string(mystr):
         # initiates at every change of start index.
         candidate = -1
         for j in range(strlen):
-            slice = mystr[i:j+1]  # elems from i to j taken (j+1 is left out)
+            slice = mystr[i:j+1]  # Characters from i to j taken (j+1 is left out)
             if(slice.isdigit() and int(slice)>candidate):
                 candidate = int(slice)
         # If int found starting at i:
@@ -50,7 +50,7 @@ def get_ints_of_string(mystr):
             # first non-decimal:
             i += len(str(candidate))
         else:
-            # If no int found with that start index:
+            # If no int found with that start index, tries the next one:
             i = i+1
     return ints
 
