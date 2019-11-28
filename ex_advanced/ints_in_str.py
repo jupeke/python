@@ -25,7 +25,7 @@ def get_ints_of_string(mystr):
 
 def test_get_ints_of_string():
     strs = ["", "1","12345", "a1a", "a1a2j","a1a123h","113f222",
-            "3,4-4 g 9709","12a31h42a555", "8 x 9 = ?"]
+            "3,4-4 g 9709","12a31h42a555", "8 x 9 = ?","87 x 69 = ?" ]
     for str in strs:
         print("Testing string","\""+str+"\",","result:",get_ints_of_string(str))
 
