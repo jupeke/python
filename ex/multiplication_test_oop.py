@@ -5,6 +5,8 @@ class Teacher:
         self.name = name
         self.title = title
         self.questions = list()
+        self.ceiling = 10    # Default
+        self.number_of_questions = 5 # Default
 
     def ask_question(self, ceiling):
         q = Question(ceiling)
@@ -33,7 +35,15 @@ class Teacher:
         respons = "Total: "+str(points)+"/"+str(len(self.questions))
         return respons
 
-    
+    def say_hello(self):
+        print("Hello! My name is {} {} and I will ask a few questions.".\
+            format(self.title, self.name))
+    def ask_ceiling(self):
+        print("Give the biggest possible number")
+
+    def ask_numb_of_questions(self):
+        print("How many questions do you want to hear?")
+
 
 class Question:
     def __init__(self, ceiling):
@@ -58,8 +68,7 @@ end = False
 prof = Teacher("Kerkkänen", "Mr. ")
 while (end == False):
     print()
-    print("Hello! My name is ",prof.title,prof.name,
-            "and I will ask a few questions.")
+    prof.say_hello()
     print("How many questions do you want to hear?")
     numb = int(input())
     print("Give the biggest possible number")
