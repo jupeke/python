@@ -15,7 +15,6 @@ class Teacher:
             self.ask_question(self.ceiling)
 
     def ask_question(self, ceiling):
-        print()
         q = Question(ceiling)
         print(q.output())
         q.save_answer()
@@ -32,6 +31,7 @@ class Teacher:
                 feedback = "The answer was wrong."
             result += "Q"+str(counter)+") "+q.output()+ str(q.correct_answer)+". "
             result += "User answered "+ str(q.user_answer)+". "+feedback+"\n"
+            counter += 1
         print()
         print(result)
 
@@ -54,6 +54,7 @@ class Teacher:
         print()
         print("Give the biggest possible number")
         self.ceiling = int(input())
+        print()
 
     # Asks for a number of questions and stores it to self.number_of_questions
     def ask_for_numb_of_questions(self):
