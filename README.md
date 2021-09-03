@@ -2,12 +2,13 @@
 
 ## Method 1 (Command Prompt): You need to know some Command Line commands but otherwise this works well.
 
-1 Start Command Prompt and cd to the folder containing your python code.
-1 Check the path to the python.exe file and copy it (File Explorer)
-1 In Command Prompt type the following command:
+1. Start Command Prompt and cd to the folder containing your python code.
+1. Check the path to the python.exe file and copy it (File Explorer)
+1. In Command Prompt type the following command:
+
 [path to python.exe folder]\python.exe [python code file]
 
-1 A real life example (note quotes around names with spaces): 
+1. A real life example (note quotes around names with spaces): 
 
 C:\"Program Files (x86)"\Python37-32\python.exe helloWorld.py
 
