@@ -2,6 +2,7 @@
 
 ## Method 1 (Command Prompt): You need to know some Command Line commands but otherwise this works well.
 
+- Open an editor (like Atom) and write some code and save it as a .py file.
 - Start Command Prompt and cd to the folder containing your python code.
 - Check the path to the python.exe file and copy it (File Explorer)
 - In Command Prompt type the following command:
