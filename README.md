@@ -9,7 +9,7 @@
 
 [path to python.exe folder]\python.exe [python code file]
 
-- A real life example (note quotes around names with spaces): 
+- A real life example (note quotes around names with spaces and the empty space after ".exe"): 
 
 C:\"Program Files (x86)"\Python37-32\python.exe helloWorld.py
 
