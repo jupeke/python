@@ -1,4 +1,4 @@
-def startriangle(n):
+def startriangle(n_odd):
     stars = ""
     for i in range(n):
         for j in range(i+1):

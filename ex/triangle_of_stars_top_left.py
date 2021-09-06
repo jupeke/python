@@ -2,7 +2,7 @@ def startriangle(n):
     stars = ""
     for i in range(n):
         for j in range(n-i):
-            stars += "*  "
+            stars += "* "
         stars += "\n"
     return stars
 
