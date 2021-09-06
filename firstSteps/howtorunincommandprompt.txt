@@ -1,10 +1,9 @@
 Path to the folder containing my codes:
-C:\Users\kerkkaju\Documents\GitHub\Python\firstSteps
-C:\Users\kerkkaju\Documents\GitHub\Python\ex
+cd C:\Users\kerkkaju.EEB2.000\Documents\github\python\firstSteps
 
 
 Path to the folder containing python.exe:
-532) C:\Program Files (x86)\??
+532) C:\"Program Files (x86)"\Python37-32
 422) C:\Users\kerkkaju\Documents\WPy64-3740\python-3.7.4.amd64
 
 How to run python code in Command Prompt:

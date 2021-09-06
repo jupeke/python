@@ -15,6 +15,7 @@ while finish == False:
             print(str(i+1)+": ",message)
     except ValueError:
         print("Not an integer!")
+
     m = input("Want to try again (yes/no)? ")
     if (m != "yes"):
         finish = True

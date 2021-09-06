@@ -17,7 +17,7 @@ print() # An empty line.
 print("Elements preceded by a number:")
 counter = 1
 for elem in list1:
-    print (counter,":", elem)   # Method 1
+    print (counter,":", elem)   # Method 1: adds spaces around ":"!
     print (str(counter) + ": " + elem) # Method 2
     print ("{}: {}".format(counter, elem)) # Method 3
     counter = counter + 1

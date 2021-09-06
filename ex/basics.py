@@ -14,7 +14,7 @@ while finish == False:
     print("Give a message, please:")
     # Retrieves the message given by user:
     message = input()
-    print("Give a number, please")
+    print("Give a number, please:")
     # Important: if ValueError, goes to except block.
     try:
         number = int(input())   # Error if input not good
