@@ -9,4 +9,4 @@ def startriangle(n):
         stars += "\n"
     return stars
 
-print(startriangle(4))
+print(startriangle(15))
