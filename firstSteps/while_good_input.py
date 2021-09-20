@@ -3,16 +3,13 @@
 finish = False
 while finish == False:
     print()
-    message = input("Give a message, please: ")
-
     # This way the input comes on its own row:
     print("Give a number, please")
 
     # Important: if ValueError, goes to except block.
     try:
         number = int(input())   # Error if input not good
-        for i in range(number):
-            print(str(i+1)+": ",message)
+        print("Your number is ",number)
     except ValueError:
         print("Not an integer!")
 
