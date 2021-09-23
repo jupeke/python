@@ -3,7 +3,7 @@ from graphics import *
 # Modified from the code at https://csveda.com/python-graphics-programming-using-graphics-py-module/
 def main():
     colors=[]
-    numb_of_circles = 5
+    numb_of_circles = 50
     max=256
     red=max
     green=0
@@ -18,7 +18,7 @@ def main():
 
     win_width = 800
     win_height = 800
-    window = GraphWin('Rainbow Circle', win_width, win_height) # give title and dimensions
+    window = GraphWin('Circles', win_width, win_height) # give title and dimensions
     window.setBackground('black') # background color
     x_middle=window.getWidth()/2 # get x of middle of drawing area
     y_middle=window.getHeight()/2 # get y of middle of drawing area
@@ -28,7 +28,7 @@ def main():
         gap = win_width/(numb_of_circles*2)
         cir=Circle(Point(x_middle, y_middle), 5+gap*i)# draw circle with center at middle of drawing area
         cir.setOutline(colors[i]) #get a next outline color from color array
-        cir.setWidth(gap-5)#set outline width
+        cir.setWidth(gap-2)#set outline width
         cir.draw(window)#draw the current circle
         i+=1 # increment counter for iteration
 
