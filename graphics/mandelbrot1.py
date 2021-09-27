@@ -62,11 +62,11 @@ class MainProgram():
 
     def create_points(self):
         step = RATIO/WIN_WIDTH*4
-        numb_of_points = 150
+        numb_of_points = 100
         for i in range(numb_of_points):
-            x = -3+i*step
+            x = -2+i*step
             for j in range(numb_of_points):
-                y = -3+j*step
+                y = -2+j*step
                 p = ComplexPoint(complex(x,y),self.window)
                 self.points.append(p)
 
@@ -125,7 +125,7 @@ class ComplexPoint:
                 self.mb_testpoints.append(cpoint)
 
             # Test if is a Mandelbrot number:
-            if self.is_mb_point and self.modulus() > 2:
+            if self.is_mb_point==True and cpoint.modulus() > 2:
                 self.is_mb_point = False
 
             # Counts the next one:
