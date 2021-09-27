@@ -1,19 +1,21 @@
 from graphics import *
-import cmath
+import cmath, math
+
+MAX_COLOR = 256
+WIN_WIDTH = 1000
+WIN_HEIGHT = 1000
+RATIO = 100 # unit step on screen = win_widht/ratio
 
 class MainProgram():
-    MAX_COLOR = 256
     points = []
     def __init__(self):
-        self.red = self.MAX_COLOR
+        self.red = MAX_COLOR
         self.green = 0
         self.blue = 0
-        self.win_width = 1000
-        self.win_height = 1000
-        self.window = GraphWin('Mandelbrot', self.win_width, self.win_height) # give title and dimensions
+        self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.setBackground('white') # background color
-        self.origin_x = self.win_width/2
-        self.origin_y = self.win_height/2
+        self.origin_x = WIN_WIDTH/2
+        self.origin_y = WIN_HEIGHT/2
         #self.message = Text(Point(self.origin_x, 20), 'Click to Exit')
         #self.message.draw(self.window)
 
@@ -26,19 +28,29 @@ class MainProgram():
             p.draw_testpoints()
 
     def create_coordinates(self, win):
-        y_axe = Line(Point(self.origin_x,0), Point(self.origin_x,self.win_height))
+        y_axe = Line(Point(self.origin_x,0), Point(self.origin_x, WIN_HEIGHT))
         y_axe.setArrow("first")
         y_axe.draw(win)
-        x_axe = Line(Point(0,self.origin_y), Point(self.win_width,self.origin_y))
+        x_axe = Line(Point(0,self.origin_y), Point(WIN_WIDTH,self.origin_y))
         x_axe.setArrow("last")
+        x_axe.setWidth(1)
         x_axe.draw(win)
-        label_x = Text(Point(self.win_width-30, self.origin_y+10), 'x')
+
+        x_step = self.origin_x + WIN_WIDTH/RATIO
+        x1 = Line(Point(x_step,self.origin_y-2), \
+            Point(x_step,self.origin_y+1+2))    # 1 is for line width
+        x1.draw(win)
+        label_x1 = Text(Point(x_step,self.origin_y+10), "1")
+        label_x1.setSize(8)
+        label_x1.draw(win)
+
+        label_x = Text(Point(WIN_WIDTH-30, self.origin_y+10), 'x')
         label_x.draw(win)
         label_y = Text(Point(self.origin_x+10, 20), 'y')
         label_y.draw(win)
 
     def create_points(self):
-        p = ComplexPoint(complex(0,1),self.window)
+        p = ComplexPoint(complex(1,1),self.window)
         self.points.append(p)
 
     def draw_points(self):
@@ -59,6 +71,7 @@ class ComplexPoint:
     # Draw the point to the window. The origin (0,0) is at the center of the window.
     def draw_me(self, win):
         p = self.get_point_object(win)
+        p.setFill("red")
         p.draw(win)
 
     def draw_testpoints(self):
@@ -66,14 +79,14 @@ class ComplexPoint:
             p.draw_me(self.window)
 
     def get_point_object(self, win):
-        x_corrected = self.x+win.getWidth()/2
-        y_corrected = self.y+win.getWidth()/2
+        x_corrected = RATIO*self.x+WIN_WIDTH/2
+        y_corrected = RATIO*self.y+WIN_HEIGHT/2
         p = Point(x_corrected, y_corrected)
         return p
 
     # Return the modulus this complex number.
     def modulus(self):
-        r = (self.x ** 2 + self.y ** 2) ** 0.5
+        r = math.sqrt(self.x ** 2 + self.y ** 2)
         return r
 
     def get_mb_testpoints(self):
