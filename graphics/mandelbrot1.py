@@ -4,7 +4,7 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1000
 WIN_HEIGHT = 1000
-RATIO = 100 # unit step on screen = win_widht/ratio
+RATIO = 10 # unit step on screen = win_widht/ratio
 
 class MainProgram():
     points = []
@@ -22,10 +22,13 @@ class MainProgram():
     def run(self):
         self.create_coordinates(self.window)
         self.create_points()
-        self.draw_points()
+        #self.draw_points()
         for p in self.points:
             p.get_mb_testpoints()
-            p.draw_testpoints()
+            #p.draw_testpoints()
+
+        self.draw_mandelbrot_points()
+        self.draw_not_mandelbrot_points()
 
     def create_coordinates(self, win):
         y_axe = Line(Point(self.origin_x,0), Point(self.origin_x, WIN_HEIGHT))
@@ -44,22 +47,44 @@ class MainProgram():
         label_x1.setSize(8)
         label_x1.draw(win)
 
+        y_step = self.origin_y - WIN_WIDTH/RATIO # step length is the same.
+        y1 = Line(Point(self.origin_x-2,y_step), \
+            Point(self.origin_x+3,y_step))    # 1 is for line width
+        y1.draw(win)
+        label_y1 = Text(Point(self.origin_x+10,y_step), "1")
+        label_y1.setSize(8)
+        label_y1.draw(win)
+
         label_x = Text(Point(WIN_WIDTH-30, self.origin_y+10), 'x')
         label_x.draw(win)
         label_y = Text(Point(self.origin_x+10, 20), 'y')
         label_y.draw(win)
 
     def create_points(self):
-        p = ComplexPoint(complex(1,1),self.window)
-        self.points.append(p)
+        step = RATIO/WIN_WIDTH*4
+        numb_of_points = 150
+        for i in range(numb_of_points):
+            x = -3+i*step
+            for j in range(numb_of_points):
+                y = -3+j*step
+                p = ComplexPoint(complex(x,y),self.window)
+                self.points.append(p)
 
     def draw_points(self):
         for p in self.points:
-            p.draw_me(self.window)
+            p.draw_me(self.window, 'blue')
+
+    def draw_mandelbrot_points(self):
+        for p in self.points:
+            if p.is_mb_point == True:
+                p.draw_me(self.window, 'green')
+    def draw_not_mandelbrot_points(self):
+        for p in self.points:
+            if p.is_mb_point == False:
+                p.draw_me(self.window, 'red')
 
 class ComplexPoint:
     MB_TEST_DEPTH = 50
-    is_mb_point = False # Is a Mandelbrot point or not?
 
     def __init__(self, cnumber, window):
         self.cnumber = cnumber
@@ -67,20 +92,21 @@ class ComplexPoint:
         self.y = cnumber.imag
         self.window = window
         self.mb_testpoints = []
+        self.is_mb_point = False # Is a Mandelbrot point or not?
 
     # Draw the point to the window. The origin (0,0) is at the center of the window.
-    def draw_me(self, win):
+    def draw_me(self, win, color):
         p = self.get_point_object(win)
-        p.setFill("red")
+        p.setFill(color)
         p.draw(win)
 
     def draw_testpoints(self):
         for p in self.mb_testpoints:
-            p.draw_me(self.window)
+            p.draw_me(self.window, 'red')
 
     def get_point_object(self, win):
-        x_corrected = RATIO*self.x+WIN_WIDTH/2
-        y_corrected = RATIO*self.y+WIN_HEIGHT/2
+        x_corrected = (WIN_WIDTH/RATIO)*self.x+WIN_WIDTH/2
+        y_corrected = -(WIN_WIDTH/RATIO)*self.y+WIN_HEIGHT/2
         p = Point(x_corrected, y_corrected)
         return p
 
@@ -90,18 +116,21 @@ class ComplexPoint:
         return r
 
     def get_mb_testpoints(self):
-        self.is_mandelbrot_point = True # Default first
+        self.is_mb_point = True # Default first
         testpoint = self.cnumber
+        counter = 1
         for i in range(self.MB_TEST_DEPTH):
             cpoint = ComplexPoint(testpoint, self.window)
-            self.mb_testpoints.append(cpoint)
+            if counter > 1:
+                self.mb_testpoints.append(cpoint)
 
             # Test if is a Mandelbrot number:
-            if self.is_mandelbrot_point and self.modulus() > 2:
-                self.is_mandelbrot_point = False
+            if self.is_mb_point and self.modulus() > 2:
+                self.is_mb_point = False
 
             # Counts the next one:
             testpoint = testpoint * testpoint + testpoint
+            counter += 1
 
 
 main = MainProgram()
