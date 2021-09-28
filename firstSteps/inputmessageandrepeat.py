@@ -13,7 +13,7 @@ while finish == False:
         number = int(input())   # Error if input not good
         for i in range(number):
             print(str(i+1)+": ",message)
-    except ValueError:
+    except ValueError:dfg
         print("Not an integer!")
 
     m = input("Want to try again (yes/no)? ")
