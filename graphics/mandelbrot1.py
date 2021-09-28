@@ -104,6 +104,7 @@ class ComplexPoint:
         for p in self.mb_testpoints:
             p.draw_me(self.window, 'red')
 
+    # Point on the screen:
     def get_point_object(self, win):
         x_corrected = (WIN_WIDTH/RATIO)*self.x+WIN_WIDTH/2
         y_corrected = -(WIN_WIDTH/RATIO)*self.y+WIN_HEIGHT/2
@@ -127,6 +128,7 @@ class ComplexPoint:
             # Test if is a Mandelbrot number:
             if self.is_mb_point==True and cpoint.modulus() > 2:
                 self.is_mb_point = False
+                break
 
             # Counts the next one:
             testpoint = testpoint * testpoint + testpoint
