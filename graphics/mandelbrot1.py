@@ -122,7 +122,7 @@ class ComplexPoint:
         counter = 1
         for i in range(self.MB_TEST_DEPTH):
             cpoint = ComplexPoint(testpoint, self.window)
-            if counter > 1:
+            if counter > 1: # the 1st is the original, don't overdraw it
                 self.mb_testpoints.append(cpoint)
 
             # Test if is a Mandelbrot number:
