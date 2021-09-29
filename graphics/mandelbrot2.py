@@ -25,9 +25,7 @@ class MainProgram():
         
         # Only after testing we know which points are md points.
         for p in self.points:
-            p.get_mb_testpoints()
-            if draw_testpoints == True:
-                p.draw_testpoints()
+            p.get_mb_testpoints(draw_testpoints)
 
         if draw_mdpoints == True:
             self.draw_mandelbrot_points()
@@ -74,8 +72,8 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        step = RATIO/WIN_WIDTH*2
-        numb_of_points = 200
+        step = RATIO/WIN_WIDTH*5
+        numb_of_points = 20
         for i in range(numb_of_points):
             x = -3+i*step
             for j in range(numb_of_points):
@@ -91,6 +89,7 @@ class MainProgram():
         for p in self.points:
             if p.is_mb_point == True:
                 p.draw_me(self.window, 'white')
+
     def draw_not_mandelbrot_points(self):
         for p in self.points:
             if p.is_mb_point == False:
@@ -104,7 +103,6 @@ class ComplexPoint:
         self.x = cnumber.real
         self.y = cnumber.imag
         self.window = window
-        self.mb_testpoints = []
         self.is_mb_point = False # Is a Mandelbrot point or not?
 
     # Draw the point to the window. The origin (0,0) is at the center of the window.
@@ -112,10 +110,6 @@ class ComplexPoint:
         p = self.get_point_object(win)
         p.setFill(color)
         p.draw(win)
-
-    def draw_testpoints(self):
-        for p in self.mb_testpoints:
-            p.draw_me(self.window, 'red')
 
     # Point on the screen:
     def get_point_object(self, win):
@@ -129,19 +123,21 @@ class ComplexPoint:
         r = math.sqrt(self.x ** 2 + self.y ** 2)
         return r
 
-    def get_mb_testpoints(self):
+    def get_mb_testpoints(self,draw):
         self.is_mb_point = True # Default first
         testpoint = self.cnumber
         counter = 1
         for i in range(self.MB_TEST_DEPTH):
             cpoint = ComplexPoint(testpoint, self.window)
-            if counter > 1: # the 1st is the original, don't overdraw it
-                self.mb_testpoints.append(cpoint)
 
-            # Test if is a Mandelbrot number:
-            if self.is_mb_point==True and cpoint.modulus() > 2:
+            # Test if is a Mandelbrot number. The limit
+            # is 2 but with 4 we get more testpoints:
+            if self.is_mb_point==True and cpoint.modulus() > 4: 
                 self.is_mb_point = False
                 break
+
+            if draw == True and counter > 1:
+                cpoint.draw_me(self.window, 'red')
 
             # Counts the next one:
             testpoint = testpoint * testpoint + testpoint
