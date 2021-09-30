@@ -4,7 +4,7 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1000
 WIN_HEIGHT = 1000
-RATIO = 5 # unit step on screen = win_widht/ratio
+RATIO = 3 # unit step on screen = win_widht/ratio
 
 class MainProgram():
     points = []
@@ -15,7 +15,7 @@ class MainProgram():
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
-        self.origin_x = WIN_WIDTH/2
+        self.origin_x = WIN_WIDTH/2 + WIN_HEIGHT/RATIO
         self.origin_y = WIN_HEIGHT/2
         self.window.flush()
 
@@ -77,7 +77,7 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        step = RATIO/WIN_WIDTH*2
+        step = RATIO/WIN_WIDTH*3
         numb_of_points = 400
         for i in range(numb_of_points):
             x = -2+i*step
