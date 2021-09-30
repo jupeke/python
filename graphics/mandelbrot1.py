@@ -4,7 +4,7 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1000
 WIN_HEIGHT = 1000
-RATIO = 10 # unit step on screen = win_widht/ratio
+RATIO = 5 # unit step on screen = win_widht/ratio
 
 class MainProgram():
     points = []
@@ -13,11 +13,11 @@ class MainProgram():
         self.green = 0
         self.blue = 0
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
+        self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
         self.origin_x = WIN_WIDTH/2
         self.origin_y = WIN_HEIGHT/2
-        #self.message = Text(Point(self.origin_x, 20), 'Click to Exit')
-        #self.message.draw(self.window)
+        self.window.flush()
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
         self.create_coordinates(self.window)
@@ -25,14 +25,17 @@ class MainProgram():
         
         # Only after testing we know which points are md points.
         for p in self.points:
-            p.get_mb_testpoints()
-            if draw_testpoints == True:
-                p.draw_testpoints()
+            p.get_mb_testpoints(draw_testpoints)
+
+        self.window.flush()
 
         if draw_mdpoints == True:
             self.draw_mandelbrot_points()
-        if draw_testpoints == True:
+            self.window.flush()
+        
+        if draw_notmdpoints == True:
             self.draw_not_mandelbrot_points()
+            self.window.flush()
 
     def create_coordinates(self, win):
         color = "#444"
@@ -75,9 +78,9 @@ class MainProgram():
 
     def create_points(self):
         step = RATIO/WIN_WIDTH*2
-        numb_of_points = 200
+        numb_of_points = 400
         for i in range(numb_of_points):
-            x = -3+i*step
+            x = -2+i*step
             for j in range(numb_of_points):
                 y = -2+j*step
                 p = ComplexPoint(complex(x,y),self.window)
@@ -91,6 +94,7 @@ class MainProgram():
         for p in self.points:
             if p.is_mb_point == True:
                 p.draw_me(self.window, 'white')
+
     def draw_not_mandelbrot_points(self):
         for p in self.points:
             if p.is_mb_point == False:
@@ -104,7 +108,6 @@ class ComplexPoint:
         self.x = cnumber.real
         self.y = cnumber.imag
         self.window = window
-        self.mb_testpoints = []
         self.is_mb_point = False # Is a Mandelbrot point or not?
 
     # Draw the point to the window. The origin (0,0) is at the center of the window.
@@ -112,10 +115,6 @@ class ComplexPoint:
         p = self.get_point_object(win)
         p.setFill(color)
         p.draw(win)
-
-    def draw_testpoints(self):
-        for p in self.mb_testpoints:
-            p.draw_me(self.window, 'red')
 
     # Point on the screen:
     def get_point_object(self, win):
@@ -129,28 +128,30 @@ class ComplexPoint:
         r = math.sqrt(self.x ** 2 + self.y ** 2)
         return r
 
-    def get_mb_testpoints(self):
+    def get_mb_testpoints(self,draw):
         self.is_mb_point = True # Default first
         testpoint = self.cnumber
         counter = 1
         for i in range(self.MB_TEST_DEPTH):
             cpoint = ComplexPoint(testpoint, self.window)
-            if counter > 1: # the 1st is the original, don't overdraw it
-                self.mb_testpoints.append(cpoint)
 
-            # Test if is a Mandelbrot number:
-            if self.is_mb_point==True and cpoint.modulus() > 2:
+            # Test if is a Mandelbrot number. The limit
+            # is 2 but with 4 we get more testpoints:
+            if self.is_mb_point==True and cpoint.modulus() > 10: 
                 self.is_mb_point = False
                 break
 
+            if draw == True and counter > 1:
+                cpoint.draw_me(self.window, 'red')
+
             # Counts the next one:
-            testpoint = testpoint * testpoint + testpoint
+            testpoint = testpoint * testpoint + self.cnumber
             counter += 1
 
 
 main = MainProgram()
 draw_mdpoints = True
-draw_notmdpoints = False 
+draw_notmdpoints = True
 draw_testpoints = False
 main.run(draw_mdpoints, draw_notmdpoints, draw_testpoints)
 main.window.getMouse()# get mouse to click on screen to exit
