@@ -79,10 +79,12 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        #step = RATIO/WIN_WIDTH*1.5
-        #numb_of_points = 800
-        step = RATIO/WIN_WIDTH*2
-        numb_of_points = 900
+        #step = RATIO/WIN_WIDTH*2 #ok for md
+        #numb_of_points = 900 #ok for md
+
+        step = RATIO/WIN_WIDTH*5 #ok for testpoints
+        numb_of_points = 400 #ok for testpoints
+
         for i in range(numb_of_points):
             x = -3+i*step
             for j in range(numb_of_points):
@@ -154,7 +156,7 @@ class ComplexPoint:
                 self.escape_threshold = int(i+1)
                 break
 
-            if draw == True and counter > int(i+1):
+            if draw == True and i > 0:
                 cpoint.draw_me(self.window, 'red')
 
             # Counts the next one:
@@ -162,8 +164,8 @@ class ComplexPoint:
 
 main = MainProgram()
 draw_mdpoints = True
-draw_notmdpoints = True
-draw_testpoints = False
+draw_notmdpoints = False
+draw_testpoints = True
 main.run(draw_mdpoints, draw_notmdpoints, draw_testpoints)
 main.window.getMouse()# get mouse to click on screen to exit
 main.window.close() # close the drawing window
