@@ -4,7 +4,7 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1200
 WIN_HEIGHT = 900
-RATIO = 4 # unit step on screen = win_widht/ratio
+RATIO = 4 # unit step on screen = win_width/ratio
 
 class MainProgram():
     points = []
@@ -137,7 +137,7 @@ class ComplexPoint:
         p = Point(x_corrected, y_corrected)
         return p
 
-    # Return the modulus this complex number.
+    # Return the modulus of this complex number.
     def modulus(self):
         r = math.sqrt(self.x ** 2 + self.y ** 2)
         return r
