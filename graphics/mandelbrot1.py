@@ -2,27 +2,29 @@ from graphics import *
 import cmath, math
 
 MAX_COLOR = 256
-WIN_WIDTH = 1000
-WIN_HEIGHT = 1000
+WIN_WIDTH = 1300
+WIN_HEIGHT = 900
 RATIO = 3 # unit step on screen = win_widht/ratio
 
 class MainProgram():
     points = []
     def __init__(self):
         self.red = MAX_COLOR
+        self.mb_test_depth = 50
         self.green = 0
         self.blue = 0
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
-        self.origin_x = WIN_WIDTH/2 + WIN_HEIGHT/RATIO
+        self.origin_x = WIN_WIDTH/2+200
         self.origin_y = WIN_HEIGHT/2
         self.window.flush()
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
         self.create_coordinates(self.window)
+        self.window.flush()
         self.create_points()
-        
+
         # Only after testing we know which points are md points.
         for p in self.points:
             p.get_mb_testpoints(draw_testpoints)
@@ -32,7 +34,7 @@ class MainProgram():
         if draw_mdpoints == True:
             self.draw_mandelbrot_points()
             self.window.flush()
-        
+
         if draw_notmdpoints == True:
             self.draw_not_mandelbrot_points()
             self.window.flush()
@@ -77,13 +79,15 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        step = RATIO/WIN_WIDTH*3
+        #step = RATIO/WIN_WIDTH*1.5
+        #numb_of_points = 800
+        step = RATIO/WIN_WIDTH*4
         numb_of_points = 400
         for i in range(numb_of_points):
-            x = -2+i*step
+            x = -2.5+i*step
             for j in range(numb_of_points):
                 y = -2+j*step
-                p = ComplexPoint(complex(x,y),self.window)
+                p = ComplexPoint(complex(x,y),self)
                 self.points.append(p)
 
     def draw_points(self):
@@ -98,17 +102,26 @@ class MainProgram():
     def draw_not_mandelbrot_points(self):
         for p in self.points:
             if p.is_mb_point == False:
-                p.draw_me(self.window, '#444')
+                red = 0
+                blue = 0
+                esc = p.escape_threshold
+                tdepth = self.mb_test_depth
+                green = int(max(MAX_COLOR - (esc/tdepth)*MAX_COLOR, 0))
+                color = color_rgb(red,green,blue)
+                p.draw_me(self.window, color)
 
 class ComplexPoint:
-    MB_TEST_DEPTH = 50
-
-    def __init__(self, cnumber, window):
+    def __init__(self, cnumber, main):
         self.cnumber = cnumber
         self.x = cnumber.real
         self.y = cnumber.imag
-        self.window = window
+        self.main = main
+        self.window = self.main.window
         self.is_mb_point = False # Is a Mandelbrot point or not?
+
+        # Gives the number of test iterations needed to quit
+        # the defined circle (-> hajaantuu)
+        self.escape_threshold = 0 # 0 for md elements.
 
     # Draw the point to the window. The origin (0,0) is at the center of the window.
     def draw_me(self, win, color):
@@ -118,8 +131,8 @@ class ComplexPoint:
 
     # Point on the screen:
     def get_point_object(self, win):
-        x_corrected = (WIN_WIDTH/RATIO)*self.x+WIN_WIDTH/2
-        y_corrected = -(WIN_WIDTH/RATIO)*self.y+WIN_HEIGHT/2
+        x_corrected = (WIN_WIDTH/RATIO)*self.x+self.main.origin_x
+        y_corrected = -(WIN_WIDTH/RATIO)*self.y+self.main.origin_y
         p = Point(x_corrected, y_corrected)
         return p
 
@@ -131,23 +144,21 @@ class ComplexPoint:
     def get_mb_testpoints(self,draw):
         self.is_mb_point = True # Default first
         testpoint = self.cnumber
-        counter = 1
-        for i in range(self.MB_TEST_DEPTH):
-            cpoint = ComplexPoint(testpoint, self.window)
+        for i in range(self.main.mb_test_depth):
+            cpoint = ComplexPoint(testpoint, self.main)
 
             # Test if is a Mandelbrot number. The limit
-            # is 2 but with 4 we get more testpoints:
-            if self.is_mb_point==True and cpoint.modulus() > 10: 
+            # is 2 but with a big number we get more testpoints:
+            if self.is_mb_point==True and cpoint.modulus() > 100:
                 self.is_mb_point = False
+                self.escape_threshold = int(i+1)
                 break
 
-            if draw == True and counter > 1:
+            if draw == True and counter > int(i+1):
                 cpoint.draw_me(self.window, 'red')
 
             # Counts the next one:
             testpoint = testpoint * testpoint + self.cnumber
-            counter += 1
-
 
 main = MainProgram()
 draw_mdpoints = True
