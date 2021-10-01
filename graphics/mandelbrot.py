@@ -2,9 +2,9 @@ from graphics import *
 import cmath, math
 
 MAX_COLOR = 256
-WIN_WIDTH = 1300
+WIN_WIDTH = 1200
 WIN_HEIGHT = 900
-RATIO = 3 # unit step on screen = win_widht/ratio
+RATIO = 4 # unit step on screen = win_widht/ratio
 
 class MainProgram():
     points = []
@@ -81,10 +81,10 @@ class MainProgram():
     def create_points(self):
         #step = RATIO/WIN_WIDTH*1.5
         #numb_of_points = 800
-        step = RATIO/WIN_WIDTH*4
-        numb_of_points = 400
+        step = RATIO/WIN_WIDTH*2
+        numb_of_points = 900
         for i in range(numb_of_points):
-            x = -2.5+i*step
+            x = -3+i*step
             for j in range(numb_of_points):
                 y = -2+j*step
                 p = ComplexPoint(complex(x,y),self)
@@ -102,11 +102,11 @@ class MainProgram():
     def draw_not_mandelbrot_points(self):
         for p in self.points:
             if p.is_mb_point == False:
-                red = 0
                 blue = 0
+                green = 0
                 esc = p.escape_threshold
                 tdepth = self.mb_test_depth
-                green = int(max(MAX_COLOR - (esc/tdepth)*MAX_COLOR, 0))
+                red = int(max(MAX_COLOR - ((esc*3)/tdepth)*MAX_COLOR, 0))
                 color = color_rgb(red,green,blue)
                 p.draw_me(self.window, color)
 
