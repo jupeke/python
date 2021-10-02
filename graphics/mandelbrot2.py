@@ -11,13 +11,14 @@ class MainProgram():
     def __init__(self):
         self.red = MAX_COLOR
         self.mb_test_depth = 50
+        self.zoom_factor = 1
         self.green = 0
         self.blue = 0
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
-        self.origin_x = WIN_WIDTH/2+200
-        self.origin_y = WIN_HEIGHT/2
+        self.origin_x = int(WIN_WIDTH/2+WIN_WIDTH/8)
+        self.origin_y = int(WIN_HEIGHT/2)
         self.window.flush()
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
@@ -124,7 +125,7 @@ class ComplexPoint:
         # the defined circle (-> hajaantuu)
         self.escape_threshold = 0 # 0 for md elements.
 
-    # Draw the point to the window. The origin (0,0) is at the center of the window.
+    # Draw the point to the window.
     def draw_me(self, win, color):
         p = self.get_point_object(win)
         p.setFill(color)
