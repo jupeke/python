@@ -2,7 +2,7 @@
 list1 = ["Jani", "Arto", "Mari", "Maija"]
 
 list1.append("Tiina")
-list1.remove(1)
+list1.remove("Tiina")
 
 result = ""
 for name in list1:

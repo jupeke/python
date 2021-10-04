@@ -5,7 +5,7 @@ MAX_COLOR = 256
 WIN_WIDTH = 1200
 WIN_HEIGHT = 900
 RATIO = 4 # unit step on screen = win_width/ratio
-
+POINTS_TO_DRAW = 100    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
@@ -80,15 +80,17 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        step = RATIO/WIN_WIDTH*2 #ok for md
-        numb_of_points = 900 #ok for md
-        #step = RATIO/WIN_WIDTH*5 #ok for testpoints
-        #numb_of_points = 400 #ok for testpoints
+        step = RATIO/WIN_WIDTH*(1000/(POINTS_TO_DRAW*self.zoom_factor)) # The real distance between two points (x or y)
 
-        for i in range(numb_of_points):
-            x = -3+i*step
-            for j in range(numb_of_points):
-                y = -2+j*step
+        # Idea: to cover equal distance on both sides of the origin:
+        points_on_unit = 1/step
+        x_start = self.origin_x - POINTS_TO_DRAW*points_on_unit/2
+        y_start = self.origin_y - POINTS_TO_DRAW*points_on_unit/2
+
+        for i in range(POINTS_TO_DRAW):
+            x = x_start+i*step
+            for j in range(POINTS_TO_DRAW):
+                y = y_start+j*step
                 p = ComplexPoint(complex(x,y),self)
                 self.points.append(p)
 
