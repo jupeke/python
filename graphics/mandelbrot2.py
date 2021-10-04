@@ -80,12 +80,16 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
+        
+        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
+        
         step = RATIO/WIN_WIDTH*(1000/(POINTS_TO_DRAW*self.zoom_factor)) # The real distance between two points (x or y)
+
 
         # Idea: to cover equal distance on both sides of the origin:
         points_on_unit = 1/step
-        x_start = self.origin_x - POINTS_TO_DRAW*points_on_unit/2
-        y_start = self.origin_y - POINTS_TO_DRAW*points_on_unit/2
+        x_start = self.origin_x - POINTS_TO_DRAW/points_on_unit/2
+        y_start = self.origin_y - POINTS_TO_DRAW/points_on_unit/2
 
         for i in range(POINTS_TO_DRAW):
             x = x_start+i*step
