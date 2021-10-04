@@ -4,8 +4,8 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1200
 WIN_HEIGHT = 900
-RATIO = 4 # unit step on screen = win_width/ratio
-POINTS_TO_DRAW = 100    # Number of points to draw
+RATIO = 20 # unit step on screen in pxs = win_width/ratio
+POINTS_TO_DRAW = 200    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
@@ -19,6 +19,8 @@ class MainProgram():
         self.window.setBackground('black') # background color
         self.origin_x = int(WIN_WIDTH/2+WIN_WIDTH/8)
         self.origin_y = int(WIN_HEIGHT/2)
+        self.focus_x = self.origin_x+200 # Center of the testpoints (x)
+        self.focus_y = self.origin_y+200 # Center of the testpoints (y)
         self.window.flush()
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
@@ -82,14 +84,17 @@ class MainProgram():
     def create_points(self):
         
         len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
-        
-        step = RATIO/WIN_WIDTH*(1000/(POINTS_TO_DRAW*self.zoom_factor)) # The real distance between two points (x or y)
 
+        # Default range (on the number line) to divide points on. Will be divided by zoom-factor. Value 1
+        # for zoom-factor is good for showing the whole set. 
+        p_range = 4/self.zoom_factor   
+
+        step = p_range/POINTS_TO_DRAW # The number line distance between two points (x or y)
 
         # Idea: to cover equal distance on both sides of the origin:
         points_on_unit = 1/step
-        x_start = self.origin_x - POINTS_TO_DRAW/points_on_unit/2
-        y_start = self.origin_y - POINTS_TO_DRAW/points_on_unit/2
+        x_start =  (self.focus_x-self.origin_x)/points_on_unit- POINTS_TO_DRAW/points_on_unit/1.5
+        y_start =  (self.focus_y-self.origin_y)/points_on_unit- POINTS_TO_DRAW/points_on_unit/2
 
         for i in range(POINTS_TO_DRAW):
             x = x_start+i*step
