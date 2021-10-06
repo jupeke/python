@@ -4,33 +4,38 @@ import cmath, math
 MAX_COLOR = 256
 WIN_WIDTH = 1200
 WIN_HEIGHT = 900
-RATIO = 20 # unit step on screen in pxs = win_width/ratio
-POINTS_TO_DRAW = 200    # Number of points to draw
+RATIO = 4 # unit step on screen in pxs = win_width/ratio * zoom_factor
+POINTS_TO_DRAW = 400    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
         self.red = MAX_COLOR
         self.mb_test_depth = 50
-        self.zoom_factor = 1
+        self.zoom_factor = 2
         self.green = 0
         self.blue = 0
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
-        self.focus_x = -2 # Center of the testpoints (x)
-        self.focus_y = -2 # Center of the testpoints (y)
-        self.origin_x_in_px = 0 # Will be set later
-        self.origin_y_in_px = 0 # Will be set later
+        self.focus_x = -0.5 # Center of the testpoints (x) = the center point!
+        self.focus_y = 0 # Center of the testpoints (y) = the center point!
+        self.center_x_in_px = int(WIN_WIDTH/2)
+        self.center_y_in_px = int(WIN_HEIGHT/2)
+        self.origin_x_in_px = self.get_origin_x_in_px()
+        self.origin_y_in_px = self.get_origin_y_in_px()
         self.window.flush()
 
-    # Converts a number of pixels (mouse) into custom coordinate units (unit = length of [0,1] on the screen)
+    # Converts a number of pixels (mouse) into custom coordinate units
+    # (unit = length of [0,1] on the screen)
     def pixels_to_units(self, px):
-        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
+        # Length of interval [0,1] in pixels
+        len_unit_on_screen_px = self.zoom_factor * WIN_WIDTH / RATIO
         return px / len_unit_on_screen_px
 
     # Converts coordinate units (unit = length of [0,1] on the screen) into the number of pixels
     def units_to_pixels(self, len):
-        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
+        # Length of interval [0,1] in pixels
+        len_unit_on_screen_px = self.zoom_factor * WIN_WIDTH / RATIO
         return len * len_unit_on_screen_px
 
     # Converts the position coordinate of x in pixels into real coordinate value.
@@ -52,10 +57,10 @@ class MainProgram():
         return self.origin_y_in_px + self.units_to_pixels(y)
 
     def get_origin_x_in_px(self):
-        return self.coordinate_x_to_position_x(-self.focus_x)
+        return self.center_x_in_px + self.units_to_pixels(-self.focus_x)
 
     def get_origin_y_in_px(self):
-        return self.coordinate_y_to_position_y(-self.focus_y)
+        return self.center_y_in_px + self.units_to_pixels(-self.focus_y)
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
         self.create_coordinates(self.window)
@@ -77,8 +82,6 @@ class MainProgram():
             self.window.flush()
 
     def create_coordinates(self, win):
-        self.origin_x_in_px = self.get_origin_x_in_px()
-        self.origin_y_in_px = self.get_origin_y_in_px()
         color = "#444"
         y_axe = Line(Point(self.origin_x_in_px,0), Point(self.origin_x_in_px, WIN_HEIGHT))
         y_axe.setArrow("first")
@@ -90,7 +93,7 @@ class MainProgram():
         x_axe.setWidth(1)
         x_axe.draw(win)
 
-        x_step = self.origin_x_in_px + WIN_WIDTH/RATIO
+        x_step = self.coordinate_x_to_position_x(1)
         x1 = Line(Point(x_step,self.origin_y_in_px-2), \
             Point(x_step,self.origin_y_in_px+1+2))    # 1 is for line width
         x1.setFill(color)
@@ -100,7 +103,7 @@ class MainProgram():
         label_x1.setFill(color)
         label_x1.draw(win)
 
-        y_step = self.origin_y_in_px - WIN_WIDTH/RATIO # step length is the same.
+        y_step = self.coordinate_y_to_position_y(1)
         y1 = Line(Point(self.origin_x_in_px-2,y_step), \
             Point(self.origin_x_in_px+3,y_step))    # 1 is for line width
         y1.setFill(color)
@@ -118,12 +121,12 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-        
+
         len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
 
         # Default range (on the number line) to divide points on. Will be divided by zoom-factor. Value 1
-        # for zoom-factor is good for showing the whole set. 
-        p_range = 4/self.zoom_factor   
+        # for zoom-factor is good for showing the whole set.
+        p_range = 4/self.zoom_factor
 
         step = p_range/POINTS_TO_DRAW # The number line distance between two points (x or y)
 
@@ -180,8 +183,8 @@ class ComplexPoint:
 
     # Point on the screen:
     def get_point_object(self, win):
-        x_corrected = (WIN_WIDTH/RATIO)*self.x+self.main.origin_x_in_px
-        y_corrected = -(WIN_WIDTH/RATIO)*self.y+self.main.origin_y_in_px
+        x_corrected = main.coordinate_x_to_position_x(self.x)
+        y_corrected = main.coordinate_y_to_position_y(self.y)
         p = Point(x_corrected, y_corrected)
         return p
 

@@ -36,7 +36,7 @@ def make_colors(number):
         colors.append(color_rgb(red,green,blue))
     return colors
 
-# Return a list with circles, one in each color given in parameter 'colors'.
+# Return a list with circles, one in each color given in parameter 'colorw'.
 def make_circles(colors, origin_x, origin_y, max_radius):
     circles = []
     i = 0
