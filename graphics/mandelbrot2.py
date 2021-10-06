@@ -17,11 +17,45 @@ class MainProgram():
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
         self.window.autoflush=False # Default is true -> redraws after every point...
         self.window.setBackground('black') # background color
-        self.origin_x = int(WIN_WIDTH/2+WIN_WIDTH/8)
-        self.origin_y = int(WIN_HEIGHT/2)
-        self.focus_x = self.origin_x+200 # Center of the testpoints (x)
-        self.focus_y = self.origin_y+200 # Center of the testpoints (y)
+        self.focus_x = -2 # Center of the testpoints (x)
+        self.focus_y = -2 # Center of the testpoints (y)
+        self.origin_x_in_px = 0 # Will be set later
+        self.origin_y_in_px = 0 # Will be set later
         self.window.flush()
+
+    # Converts a number of pixels (mouse) into custom coordinate units (unit = length of [0,1] on the screen)
+    def pixels_to_units(self, px):
+        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
+        return px / len_unit_on_screen_px
+
+    # Converts coordinate units (unit = length of [0,1] on the screen) into the number of pixels
+    def units_to_pixels(self, len):
+        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
+        return len * len_unit_on_screen_px
+
+    # Converts the position coordinate of x in pixels into real coordinate value.
+    def position_x_to_coordinate_x(self, x_pos):
+        distance_from_origin_x_in_px = x_pos - self.origin_x_in_px
+        return self.pixels_to_units(distance_from_origin_x_in_px)
+
+    # Converts the position coordinate of y in pixels into real coordinate value.
+    def position_y_to_coordinate_y(self, y_pos):
+        distance_from_origin_y_in_px = self.origin_y_in_px-y_pos
+        return self.pixels_to_units(distance_from_origin_y_in_px)
+
+     # Converts the real coordinate value to window position coordinate of y.
+    def coordinate_x_to_position_x(self, x):
+        return self.origin_x_in_px + self.units_to_pixels(x)
+
+    # Converts the real coordinate value to window position coordinate of y.
+    def coordinate_y_to_position_y(self, y):
+        return self.origin_y_in_px + self.units_to_pixels(y)
+
+    def get_origin_x_in_px(self):
+        return self.coordinate_x_to_position_x(-self.focus_x)
+
+    def get_origin_y_in_px(self):
+        return self.coordinate_y_to_position_y(-self.focus_y)
 
     def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
         self.create_coordinates(self.window)
@@ -43,41 +77,43 @@ class MainProgram():
             self.window.flush()
 
     def create_coordinates(self, win):
+        self.origin_x_in_px = self.get_origin_x_in_px()
+        self.origin_y_in_px = self.get_origin_y_in_px()
         color = "#444"
-        y_axe = Line(Point(self.origin_x,0), Point(self.origin_x, WIN_HEIGHT))
+        y_axe = Line(Point(self.origin_x_in_px,0), Point(self.origin_x_in_px, WIN_HEIGHT))
         y_axe.setArrow("first")
         y_axe.setFill(color)
         y_axe.draw(win)
-        x_axe = Line(Point(0,self.origin_y), Point(WIN_WIDTH,self.origin_y))
+        x_axe = Line(Point(0,self.origin_y_in_px), Point(WIN_WIDTH,self.origin_y_in_px))
         x_axe.setArrow("last")
         x_axe.setFill(color)
         x_axe.setWidth(1)
         x_axe.draw(win)
 
-        x_step = self.origin_x + WIN_WIDTH/RATIO
-        x1 = Line(Point(x_step,self.origin_y-2), \
-            Point(x_step,self.origin_y+1+2))    # 1 is for line width
+        x_step = self.origin_x_in_px + WIN_WIDTH/RATIO
+        x1 = Line(Point(x_step,self.origin_y_in_px-2), \
+            Point(x_step,self.origin_y_in_px+1+2))    # 1 is for line width
         x1.setFill(color)
         x1.draw(win)
-        label_x1 = Text(Point(x_step,self.origin_y+10), "1")
+        label_x1 = Text(Point(x_step,self.origin_y_in_px+10), "1")
         label_x1.setSize(8)
         label_x1.setFill(color)
         label_x1.draw(win)
 
-        y_step = self.origin_y - WIN_WIDTH/RATIO # step length is the same.
-        y1 = Line(Point(self.origin_x-2,y_step), \
-            Point(self.origin_x+3,y_step))    # 1 is for line width
+        y_step = self.origin_y_in_px - WIN_WIDTH/RATIO # step length is the same.
+        y1 = Line(Point(self.origin_x_in_px-2,y_step), \
+            Point(self.origin_x_in_px+3,y_step))    # 1 is for line width
         y1.setFill(color)
         y1.draw(win)
-        label_y1 = Text(Point(self.origin_x+10,y_step), "1")
+        label_y1 = Text(Point(self.origin_x_in_px+10,y_step), "1")
         label_y1.setSize(8)
         label_y1.setFill(color)
         label_y1.draw(win)
 
-        label_x = Text(Point(WIN_WIDTH-30, self.origin_y+10), 'x')
+        label_x = Text(Point(WIN_WIDTH-30, self.origin_y_in_px+10), 'x')
         label_x.setFill(color)
         label_x.draw(win)
-        label_y = Text(Point(self.origin_x+10, 20), 'y')
+        label_y = Text(Point(self.origin_x_in_px+10, 20), 'y')
         label_y.setFill(color)
         label_y.draw(win)
 
@@ -91,10 +127,10 @@ class MainProgram():
 
         step = p_range/POINTS_TO_DRAW # The number line distance between two points (x or y)
 
-        # Idea: to cover equal distance on both sides of the origin:
+        # Idea: to cover equal distance on both sides of the focus:
         points_on_unit = 1/step
-        x_start =  (self.focus_x-self.origin_x)/points_on_unit- POINTS_TO_DRAW/points_on_unit/1.5
-        y_start =  (self.focus_y-self.origin_y)/points_on_unit- POINTS_TO_DRAW/points_on_unit/2
+        x_start =  self.focus_x- POINTS_TO_DRAW/points_on_unit/2
+        y_start =  self.focus_y- POINTS_TO_DRAW/points_on_unit/2
 
         for i in range(POINTS_TO_DRAW):
             x = x_start+i*step
@@ -144,8 +180,8 @@ class ComplexPoint:
 
     # Point on the screen:
     def get_point_object(self, win):
-        x_corrected = (WIN_WIDTH/RATIO)*self.x+self.main.origin_x
-        y_corrected = -(WIN_WIDTH/RATIO)*self.y+self.main.origin_y
+        x_corrected = (WIN_WIDTH/RATIO)*self.x+self.main.origin_x_in_px
+        y_corrected = -(WIN_WIDTH/RATIO)*self.y+self.main.origin_y_in_px
         p = Point(x_corrected, y_corrected)
         return p
 
