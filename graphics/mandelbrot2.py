@@ -1,16 +1,16 @@
 from graphics import *
 import cmath, math
 
-MAX_COLOR = 256
-WIN_WIDTH = 1000
-WIN_HEIGHT = 1000
+MAX_COLOR = 255
+WIN_WIDTH = 600
+WIN_HEIGHT = 600
 RATIO = 4 # unit step on screen in pxs = win_width/ratio * zoom_factor
-POINTS_TO_DRAW = 100    # Number of points to draw
+POINTS_TO_DRAW = 300    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
         self.red = MAX_COLOR
-        self.mb_test_depth = 50
+        self.mb_test_depth = 100
         self.zoom_factor = 1
         self.green = 0
         self.blue = 0
@@ -175,7 +175,8 @@ class MainProgram():
                 green = 0
                 esc = p.escape_threshold
                 tdepth = self.mb_test_depth
-                red = int(max(MAX_COLOR - ((esc*3)/tdepth)*MAX_COLOR, 0))
+                #red = int(max(MAX_COLOR - ((esc*3)/tdepth)*MAX_COLOR, 0))
+                red = int(min(((esc*1)/tdepth)*MAX_COLOR, MAX_COLOR))
                 color = color_rgb(red,green,blue)
                 p.draw_me(self.window, color)
 
@@ -231,21 +232,18 @@ class ComplexPoint:
 
 main = MainProgram()
 i = 0
-focus = Point(0,0)
+focus = Point(300,300)
 draw_mdpoints = True
 draw_notmdpoints = True
 draw_testpoints = False
 zoom = 1
-while i < 5:
+while True:
     main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
-    while True:
-        key_pressed = main.window.checkKey()
-        if key_pressed == 'space':
-            zoom *= 10
-            break
-        else:
-            break
-    i += 1
+    key_pressed = main.window.checkKey()
+    if key_pressed == 'Up':
+        zoom = zoom * 100
+    elif key_pressed == 'Down':
+        zoom = zoom / 100
     focus = main.window.getMouse()
     main.clear(main.window)
 
