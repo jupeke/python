@@ -2,16 +2,16 @@ from graphics import *
 import cmath, math
 
 MAX_COLOR = 256
-WIN_WIDTH = 1200
-WIN_HEIGHT = 900
+WIN_WIDTH = 1000
+WIN_HEIGHT = 1000
 RATIO = 4 # unit step on screen in pxs = win_width/ratio * zoom_factor
-POINTS_TO_DRAW = 400    # Number of points to draw
+POINTS_TO_DRAW = 100    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
         self.red = MAX_COLOR
         self.mb_test_depth = 50
-        self.zoom_factor = 2
+        self.zoom_factor = 1
         self.green = 0
         self.blue = 0
         self.window = GraphWin('Mandelbrot', WIN_WIDTH, WIN_HEIGHT)
@@ -54,15 +54,31 @@ class MainProgram():
 
     # Converts the real coordinate value to window position coordinate of y.
     def coordinate_y_to_position_y(self, y):
-        return self.origin_y_in_px + self.units_to_pixels(y)
+        return self.origin_y_in_px - self.units_to_pixels(y)
 
     def get_origin_x_in_px(self):
         return self.center_x_in_px + self.units_to_pixels(-self.focus_x)
 
     def get_origin_y_in_px(self):
-        return self.center_y_in_px + self.units_to_pixels(-self.focus_y)
+        return self.center_y_in_px - self.units_to_pixels(-self.focus_y)
 
-    def run(self, draw_mdpoints, draw_notmdpoints, draw_testpoints):
+    def update_origin(self):
+        self.origin_x_in_px = self.get_origin_x_in_px()
+        self.origin_y_in_px = self.get_origin_y_in_px()
+
+    # Converts the position coordinate of focus x in pixels into real coordinate value.
+    def focus_pos_x_to_coordinate_x(self, focus_pos_x):
+        asdf
+
+    # Converts the position coordinate of focus y in pixels into real coordinate value.
+    def focus_pos_y_to_coordinate_y(self, focus_pos_y):
+        asdf
+
+    def show(self, focus_pos, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints):
+        self.focus_x = self.position_x_to_coordinate_x(focus_pos.x)
+        self.focus_y = self.position_y_to_coordinate_y(focus_pos.y)
+        self.zoom_factor = zoom
+        self.update_origin()
         self.create_coordinates(self.window)
         self.window.flush()
         self.create_points()
@@ -121,24 +137,18 @@ class MainProgram():
         label_y.draw(win)
 
     def create_points(self):
-
-        len_unit_on_screen_px = WIN_WIDTH / RATIO # Length of interval [0,1] in pixels
-
-        # Default range (on the number line) to divide points on. Will be divided by zoom-factor. Value 1
-        # for zoom-factor is good for showing the whole set.
-        p_range = 4/self.zoom_factor
-
-        step = p_range/POINTS_TO_DRAW # The number line distance between two points (x or y)
+        # Idea: the test points fill always the whole window (a square).
+        step_in_px = WIN_WIDTH/POINTS_TO_DRAW # The number line distance between two points (x or y)
+        step_in_units = self.pixels_to_units(step_in_px)
 
         # Idea: to cover equal distance on both sides of the focus:
-        points_on_unit = 1/step
-        x_start =  self.focus_x- POINTS_TO_DRAW/points_on_unit/2
-        y_start =  self.focus_y- POINTS_TO_DRAW/points_on_unit/2
+        x_start =  self.focus_x- 0.5 * POINTS_TO_DRAW * step_in_units
+        y_start =  self.focus_y- 0.5 * POINTS_TO_DRAW * step_in_units
 
         for i in range(POINTS_TO_DRAW):
-            x = x_start+i*step
+            x = x_start+i*step_in_units
             for j in range(POINTS_TO_DRAW):
-                y = y_start+j*step
+                y = y_start+j*step_in_units
                 p = ComplexPoint(complex(x,y),self)
                 self.points.append(p)
 
@@ -213,9 +223,16 @@ class ComplexPoint:
             testpoint = testpoint * testpoint + self.cnumber
 
 main = MainProgram()
-draw_mdpoints = True
-draw_notmdpoints = True
-draw_testpoints = False
-main.run(draw_mdpoints, draw_notmdpoints, draw_testpoints)
-main.window.getMouse()# get mouse to click on screen to exit
+i = 0
+focus = Point(0,0)
+while i < 5:
+    draw_mdpoints = True
+    draw_notmdpoints = True
+    draw_testpoints = False
+    zoom = 1
+    main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
+    i += 1
+    focus = main.window.getMouse()
+
+main.window.getMouse()
 main.window.close() # close the drawing window
