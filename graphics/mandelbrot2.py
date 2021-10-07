@@ -74,7 +74,14 @@ class MainProgram():
     def focus_pos_y_to_coordinate_y(self, focus_pos_y):
         asdf
 
+    # Found at https://stackoverflow.com/questions/45517677/graphics-py-how-to-clear-the-window
+    def clear(self, win):
+        for item in win.items[:]:
+            item.undraw()
+        win.update()
+
     def show(self, focus_pos, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints):
+        self.points = []
         self.focus_x = self.position_x_to_coordinate_x(focus_pos.x)
         self.focus_y = self.position_y_to_coordinate_y(focus_pos.y)
         self.zoom_factor = zoom
@@ -225,14 +232,22 @@ class ComplexPoint:
 main = MainProgram()
 i = 0
 focus = Point(0,0)
+draw_mdpoints = True
+draw_notmdpoints = True
+draw_testpoints = False
+zoom = 1
 while i < 5:
-    draw_mdpoints = True
-    draw_notmdpoints = True
-    draw_testpoints = False
-    zoom = 1
     main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
+    while True:
+        key_pressed = main.window.checkKey()
+        if key_pressed == 'space':
+            zoom *= 10
+            break
+        else:
+            break
     i += 1
     focus = main.window.getMouse()
+    main.clear(main.window)
 
 main.window.getMouse()
 main.window.close() # close the drawing window
