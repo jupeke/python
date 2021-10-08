@@ -66,6 +66,9 @@ class MainProgram():
         self.origin_x_in_px = self.get_origin_x_in_px()
         self.origin_y_in_px = self.get_origin_y_in_px()
 
+    def set_title(self, new):
+        self.window.setTitle(new)
+
     # Converts the position coordinate of focus x in pixels into real coordinate value.
     def focus_pos_x_to_coordinate_x(self, focus_pos_x):
         asdf
@@ -81,6 +84,7 @@ class MainProgram():
         win.update()
 
     def show(self, focus_pos, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints):
+        self.set_title("Mandelbrot: zoom_factor = {}".format(zoom))
         self.points = []
         self.focus_x = self.position_x_to_coordinate_x(focus_pos.x)
         self.focus_y = self.position_y_to_coordinate_y(focus_pos.y)
@@ -239,11 +243,16 @@ draw_testpoints = False
 zoom = 1
 while True:
     main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
-    key_pressed = main.window.checkKey()
+    key_pressed = main.window.getKey()
     if key_pressed == 'Up':
         zoom = zoom * 100
+        main.clear(main.window)
+        main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
     elif key_pressed == 'Down':
         zoom = zoom / 100
+        main.clear(main.window)
+        main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
+
     focus = main.window.getMouse()
     main.clear(main.window)
 

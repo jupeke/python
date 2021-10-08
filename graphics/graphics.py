@@ -258,6 +258,13 @@ class GraphWin(tk.Canvas):
         self.config(bg=color)
         self.__autoflush()
 
+    # author: jp
+    def setTitle(self, title):
+        """Set title of the window"""
+        self.__checkOpen()
+        self.master.title(title)
+        self.__autoflush()
+
     def setCoords(self, x1, y1, x2, y2):
         """Set coordinates of window to run from (x1,y1) in the
         lower-left corner to (x2,y2) in the upper-right corner."""
