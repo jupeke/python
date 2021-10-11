@@ -1,0 +1,4 @@
+At school use the following command:
+py -m pip install -U pygame --user
+
+Tutorial: https://realpython.com/pygame-a-primer/#background-and-setup

@@ -14,7 +14,7 @@ class Car:
 class SuperCar(Car):
     def __init__(self, name, color, masskg, vitesse):
         # runs the init of the parent class:
-        Car.__init__(self, name, color, masskg)
+        super().__init__(name, color, masskg)
         self.vitesse = vitesse
 
     # overrides the method in Person class:
