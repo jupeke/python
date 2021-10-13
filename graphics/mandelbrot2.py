@@ -2,10 +2,10 @@ from graphics import *
 import cmath, math
 
 MAX_COLOR = 255
-WIN_WIDTH = 600
-WIN_HEIGHT = 600
+WIN_WIDTH = 800
+WIN_HEIGHT = 800
 RATIO = 4 # unit step on screen in pxs = win_width/ratio * zoom_factor
-POINTS_TO_DRAW = 300    # Number of points to draw
+POINTS_TO_DRAW = 200    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
@@ -236,22 +236,22 @@ class ComplexPoint:
 
 main = MainProgram()
 i = 0
-focus = Point(300,300)
+focus = Point(WIN_WIDTH/2,WIN_WIDTH/2)
 draw_mdpoints = True
 draw_notmdpoints = True
 draw_testpoints = False
 zoom = 1
 while True:
     main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
-    key_pressed = main.window.getKey()
+    key_pressed = main.window.checkKey()
     if key_pressed == 'Up':
         zoom = zoom * 100
-        main.clear(main.window)
-        main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
+        #main.clear(main.window)
+        #main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
     elif key_pressed == 'Down':
         zoom = zoom / 100
-        main.clear(main.window)
-        main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
+        #main.clear(main.window)
+        #main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)'''
 
     focus = main.window.getMouse()
     main.clear(main.window)
