@@ -1,5 +1,8 @@
 class Vehicule:
-    # instance builder and variables
+    # Class variable, common for all objects:
+    nature_impact = "pollutes"
+
+    # Instance builder and variables
     def __init__(self, name, color, masskg):
         self.name = name
         self.color = color
@@ -7,11 +10,14 @@ class Vehicule:
 
     # self refers to the current instance of the class.
     def desc (self):
-        print("This vehicule is a {}, is {} and weighs {} kg". \
-            format(self.name, self.color, self.mass))
+        return "This vehicule is a {}, is {}, weighs {} kg and it {}.". \
+            format(self.name, self.color, self.mass, self.nature_impact)
 
 # Class that herits the Vehicule class:
 class Bicycle(Vehicule):
+    # Class variable, common for all objects:
+    nature_impact = "does not pollute"
+
     def __init__(self, color, masskg, numb_of_gears):
         # runs the init of the parent class:
         super().__init__("bicycle", color, masskg)
@@ -19,12 +25,17 @@ class Bicycle(Vehicule):
 
     # overrides the method in Person class:
     def desc (self):
-        print("This {} is {}, weighs {} kg and has {} speeds". \
-            format(self.name, self.color, self.mass, self.gears))
+        return "This {} is {}, weighs {} kg and has {} speeds and it {}.". \
+            format(self.name, self.color, self.mass, self.gears, self.nature_impact)
 
 
 # Testing classes: instances of Vehicule class
 v1 = Vehicule("truck","black",30000)
+
+# Creates an instance variable that shades the class variable (the value of
+# class variable stays the same as you can see with v2 and v3).
+v1.nature_impact = "very bad for the nature"
+
 v2 = Vehicule("person car","green",1500)
 v3 = Vehicule("tractor","black",3500)
 
@@ -33,7 +44,7 @@ vehicules = [v1, v2, v3]
 print()
 # prints descriptions of the vehicules:
 for vehicule in vehicules:
-    vehicule.desc()
+    print(vehicule.desc())
 
 # The inherited class:
 bicycle1 = Bicycle("white", 15, 18)
@@ -47,4 +58,4 @@ bicycles = [bicycle1, bicycle2, bicycle3, bicycle4, bicycle5]
 print()
 # prints descriptions of the vehicules:
 for bicycle in bicycles:
-    bicycle.desc()
+    print(bicycle.desc())

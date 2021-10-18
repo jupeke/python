@@ -242,6 +242,17 @@ draw_notmdpoints = True
 draw_testpoints = False
 zoom = 1
 while True:
+    '''
+    # Did the user click the window close button?
+    for event in pygame.event.get():
+        # Did the user hit a key?
+        if event.type == KEYDOWN:
+            # Direction?
+            if event.key == K_DOWN:
+                running = False
+        if event.type == pygame.QUIT:
+            running = False
+    '''
     main.show(focus, zoom, draw_mdpoints, draw_notmdpoints, draw_testpoints)
     key_pressed = main.window.checkKey()
     if key_pressed == 'Up':
