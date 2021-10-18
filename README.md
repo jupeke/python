@@ -13,6 +13,8 @@
 
 C:\"Program Files (x86)"\Python37-32\python.exe helloWorld.py
 
+Note: simple **py helloworld.py** or **python helloworld.py** might work, too!
+
 ## Method 2 (Atom): This works otherwise nicely directly in Atom but using input() for user input does not work.
 
 - Install Package Script (File -> Settings -> Install -> type "script")
