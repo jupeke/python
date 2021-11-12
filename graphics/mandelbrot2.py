@@ -10,7 +10,7 @@ class MainProgram():
     points = []
     def __init__(self):
         self.red = MAX_COLOR
-        self.mb_test_depth = 100
+        self.mb_test_depth = 255
         self.zoom_factor = 1
         self.green = 0
         self.blue = 0
@@ -180,7 +180,8 @@ class MainProgram():
                 esc = p.escape_threshold
                 tdepth = self.mb_test_depth
                 #red = int(max(MAX_COLOR - ((esc*3)/tdepth)*MAX_COLOR, 0))
-                red = int(min(((esc*1)/tdepth)*MAX_COLOR, MAX_COLOR))
+                #red = int(min(((esc*1)/tdepth)*MAX_COLOR, MAX_COLOR))
+                red = MAX_COLOR % esc
                 color = color_rgb(red,green,blue)
                 p.draw_me(self.window, color)
 

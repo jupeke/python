@@ -18,7 +18,11 @@ while True:
         my_object.move(dx, 0)
     elif k == 'Down':
         my_object.move(0, dy)
-    elif k == 'Space': # Not working!!
+    elif k == 'Up':
+        my_object.move(0, -dy)
+
+    # What's the name for space??
+    elif k == 'KP_Space': # Not working!!
         my_object.move(0, -dy)
     elif k == 'period':
         break
