@@ -4,36 +4,31 @@ import time
 
 win = GraphWin("My Test", 500, 500)
 my_object = Circle(Point(50, 50), 10)
-my_object.draw(win)
-dx, dy = 1, 1
+my_object.setFill("white")
+my_object.draw(win) # Draws the window
 
-def moveme(obj, dir):
-    go_on = True
-    while go_on == True:
-        if dir == "up":
-            obj.move(0, -dy)
-        elif dir == "down":
-            obj.move(0, dy)
-        elif dir == "left":
-            obj.move(-dx, 0)
-        else:
-            obj.move(dx, 0)
-        time.sleep(1)
-        #if win.checkKey:
-            #go_on = False
+DELAY = 0.02
+step = 1
+direction = "Right"
 
+# Moves obj one step (pxls) to direction dir
+def moveme(obj, dir, step):
+    if dir == "Up":
+        obj.move(0, -step)  # redraws the window, too.
+    elif dir == "Down":
+        obj.move(0, step)
+    elif dir == "Left":
+        obj.move(-step, 0)
+    elif dir == "Right":
+        obj.move(step, 0)
+
+# Main loop:
 while True:
     k = win.checkKey()
-    if k == 'Left':
-        moveme(my_object, "left")
-    elif k == 'Right':
-        moveme(my_object, "right")
-    elif k == 'Down':
-        moveme(my_object, "down")
-    elif k == 'Up':
-        moveme(my_object, "up")
+    if k in ("Up", "Down","Left","Right"):
+        direction = k
 
-    elif k == 'period':
-        break
+    moveme(my_object, direction, step)
+    time.sleep(DELAY)
 
 win.close()

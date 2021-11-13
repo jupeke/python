@@ -520,7 +520,7 @@ class GraphicsObject:
         if canvas and not canvas.isClosed():
             trans = canvas.trans
             if trans:
-                x = dx/ trans.xscale
+                x = dx / trans.xscale
                 y = -dy / trans.yscale
             else:
                 x = dx
