@@ -654,6 +654,8 @@ class Circle(Oval):
         p2 = Point(center.x+radius, center.y+radius)
         Oval.__init__(self, p1, p2)
         self.radius = radius
+        #self.center = center Does not work (Maybe does not move?)!
+        #self.center = self.getCenter()
 
     def __repr__(self):
         return "Circle({}, {})".format(str(self.getCenter()), str(self.radius))
