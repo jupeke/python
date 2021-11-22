@@ -1,4 +1,4 @@
-# Found at https://stackoverflow.com/questions/41156910/python-graphics-win-getkey-function
+# Based on https://stackoverflow.com/questions/41156910/python-graphics-win-getkey-function
 from graphics import *
 import time
 
