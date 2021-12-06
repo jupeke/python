@@ -1,12 +1,15 @@
 # based https://realpython.com/python-gui-tkinter/#building-your-first-python-gui-application-with-tkinter
 import tkinter as tk
 window = tk.Tk()
-frame_start = tk.Frame(
-    master=window,
-    relief=tk.RAISED,
-    borderwidth=1
+label = tk.Label(
+    text="This is a label",
 )
-frame_start.grid(column=0,row=0,columnspan=3)
+btn = tk.Button(
+    text="click",
+    #command = get_text
+)
+textfield = tk.Entry(width=50)
+#label.grid(column=0,row=0,columnspan=3)
 
 def get_text():
     global textfield
@@ -14,20 +17,7 @@ def get_text():
     txt = textfield.get()
     label.config(text=txt)
 
-label = tk.Label(
-    master = frame_start,
-    text="This is a label",
-    #foreground="white",  # Set the text color to white
-    #background="black",  # Set the background color to black
-)
-btn = tk.Button(
-    master = frame_start,
-    text="click",
-    bg="pink",
-    fg="blue",
-    command = get_text
-)
-textfield = tk.Entry(width=50)
+
 
 #btn.pack()
 #label.pack()
@@ -41,7 +31,7 @@ for i in range(3):
             #relief=tk.RAISED,
             borderwidth=0
         )
-        frame.grid(row=i, column=j)
+        frame.grid(row=i, column=j+1)
         btn = tk.Button(master=frame, text=f"{i}{j}", width=5,height=2)
         btn.pack()
 
