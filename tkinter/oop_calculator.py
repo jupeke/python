@@ -24,7 +24,7 @@ class App(tk.Tk):
         n2_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
         # Button
-        mybutton = ttk.Button(self, text="Enter", command=self.multiply)
+        mybutton = ttk.Button(self, text="Multiply", command=self.multiply)
         mybutton.grid(column=0, row=2, columnspan=2, sticky=tk.EW, padx=8, pady=8)
 
         # Label
@@ -35,9 +35,14 @@ class App(tk.Tk):
         return widgets
 
     def multiply(self):
-        n1 = self.widgets[2].get()
-        n2 = self.widgets[3].get()
-        self.widgets[4].config(text=n1+" x "+n2+" = "+str(int(n1)*int(n2)))
+        result = ""
+        try:
+            n1 = int(self.widgets[2].get())
+            n2 = int(self.widgets[3].get())
+            result = "{} x {} = {}".format(n1,n2,n1*n2)
+        except ValueError:
+            result = "Not an integer!"
+        self.widgets[5].config(text=result)
 
 
 if __name__ == "__main__":
