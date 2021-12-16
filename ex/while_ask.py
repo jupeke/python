@@ -4,8 +4,8 @@ while finish == False:
     print("Give a message, please:")
     # Retrieves the message given by user:
     message = input()
-    print("You wrote: "+message);
-    
+    print("You wrote: "+message)
+
     # To continue? Note the alternative syntax:
     m = input("Want to try again (yes/no)? ")
     if (m == "no"):

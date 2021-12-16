@@ -18,7 +18,7 @@ while finish == False:
     # Important: if ValueError, goes to except block.
     try:
         number = int(input())   # Error if input not good
-        repeat(message, number) # Function call
+        printmyname(message, number) # Function call
     except ValueError:
         print("Not an integer!")
 

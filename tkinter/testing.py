@@ -17,8 +17,6 @@ def get_text():
     txt = textfield.get()
     label.config(text=txt)
 
-
-
 #btn.pack()
 #label.pack()
 #textfield.pack()
