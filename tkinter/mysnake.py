@@ -37,7 +37,7 @@ class App(tk.Tk):
 
         return widgets
 
-    def go(self, dir):
+    def go(self, event, dir):
         if(dir in ("Up", "Down","Left","Right")):
             self.dir = dir
         if(self.step == 0):
@@ -73,16 +73,21 @@ class Snake:
 
             if(self.app.dir in ("Up", "Down","Left","Right")):
                 if (self.app.dir == "Up"):
-                    self.row -= self.app.step
+                    if (self.row > 0):
+                        self.row -= self.app.step
                 elif(self.app.dir == "Down"):
-                    self.row += self.app.step
+                    if (self.row < self.app.SIZE-1):
+                        self.row += self.app.step
                 elif(self.app.dir == "Left"):
-                    self.col -= self.app.step
+                    if (self.col > 0):
+                        self.col -= self.app.step
                 else:
-                    self.col += self.app.step
+                    if (self.col < self.app.SIZE-1):
+                        self.col += self.app.step
 
             # Show the snake:
             self.change_to(self.col, self.row, True)
+            self.app.update()
 
     def run(self):
         while True:
