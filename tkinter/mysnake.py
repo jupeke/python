@@ -5,8 +5,8 @@ from tkinter import ttk
 class App(tk.Tk):
     SIZE = 20
     COLOR_SNAKE = "yellow"
-    DELAY = 500
-    step = 0
+    DELAY = 200
+    step = 1
     dir = "none"
 
     def __init__(self):
@@ -37,18 +37,13 @@ class App(tk.Tk):
 
         return widgets
 
-    def go(self, event, dir):
-        if(dir in ("Up", "Down","Left","Right")):
-            self.dir = dir
-        if(self.step == 0):
-            self.step = 1
+    def on_array_press(self, event):
+        if(event.keysym in ("Up", "Down","Left","Right")):
+            self.dir = event.keysym
 
     def bind_keys(self):
         # Bind canvas with key events
-        self.bind("<Up>", self.go("Up"))
-        self.bind("<Down>", self.go("Down"))
-        self.bind("<Left>", self.go("Left"))
-        self.bind("<Right>", self.go("Right"))
+        self.bind("<KeyPress>", self.on_array_press)
         self.focus_set()
 
 class Snake:
