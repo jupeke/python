@@ -1,3 +1,5 @@
+# Change: snake should not touch at all (not even corners)
+# Make a nice end: show the length of snake.
 import tkinter as tk
 import random as rand
 from tkinter import *
