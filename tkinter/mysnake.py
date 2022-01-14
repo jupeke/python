@@ -1,8 +1,8 @@
-# Change: snake should not touch at all (not even corners)
+# Traditionally: snake should not touch at all (not even corners).
 # Make a nice end: show the length of snake.
 import tkinter as tk
 import random as rand
-from tkinter import *
+from tkinter import ttk
 class App(tk.Tk):
     SIZE = 20
     COLOR_SNAKE = "yellow"
@@ -52,6 +52,9 @@ class App(tk.Tk):
 
     def finish(self):
         self.end = True
+        mytext = "The End! Snake length: {}".format(self.snake.len)
+        lbl = ttk.Label(text=mytext)
+        lbl.grid(column=0, row=0,  columnspan=10, rowspan=1, ipadx=5,ipady=5)
 
 class Apple:
     # power == how many more squares you get while touching
