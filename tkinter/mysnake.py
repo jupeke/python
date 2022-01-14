@@ -4,11 +4,11 @@ import tkinter as tk
 import random as rand
 from tkinter import ttk
 class App(tk.Tk):
-    SIZE = 20
+    SIZE = 30
     COLOR_SNAKE = "yellow"
     COLOR_BG = "black"
     COLOR_APPLE = "red"
-    DELAY = 200
+    DELAY = 100
     UNKNOWN ="unknown"
     step = 1
     apple_power = 3
@@ -54,7 +54,7 @@ class App(tk.Tk):
         self.end = True
         mytext = "The End! Snake length: {}".format(self.snake.len)
         lbl = ttk.Label(text=mytext)
-        lbl.grid(column=0, row=0,  columnspan=10, rowspan=1, ipadx=5,ipady=5)
+        lbl.grid(column=0, row=0,  columnspan=10, ipadx=5,ipady=5)
 
 class Apple:
     # power == how many more squares you get while touching
