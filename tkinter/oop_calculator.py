@@ -4,7 +4,6 @@ from tkinter import ttk
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-
         #self.geometry("240x100")
         self.title('My window')
         self.resizable(0, 0)
@@ -28,7 +27,7 @@ class App(tk.Tk):
         mybutton.grid(column=0, row=2, columnspan=2, sticky=tk.EW, padx=8, pady=8)
 
         # Label
-        result_label = ttk.Label(self, text="Result: ")
+        result_label = ttk.Label(self, text="Result will be shown here")
         result_label.grid(column=0, row=3, columnspan=2, padx=5, pady=10)
 
         widgets = [n1_lbl,n1_lbl, n1_entry,n2_entry,mybutton, result_label]
@@ -42,7 +41,7 @@ class App(tk.Tk):
             result = "{} x {} = {}".format(n1,n2,n1*n2)
         except ValueError:
             result = "Not an integer!"
-        self.widgets[5].config(text=result)
+        self.widgets[5].config(text=result, background="pink")
 
 
 if __name__ == "__main__":

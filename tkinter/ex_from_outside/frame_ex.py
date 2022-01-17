@@ -8,7 +8,7 @@ def create_input_frame(container):
 
     # grid layout for the input frame
     frame.columnconfigure(0, weight=1)
-    frame.columnconfigure(0, weight=3)
+    frame.columnconfigure(0, weight=1)
 
     # Find what
     ttk.Label(frame, text='Find what:').grid(column=0, row=0, sticky=tk.W)
@@ -72,7 +72,7 @@ def create_main_window():
     root.attributes('-toolwindow', True)
 
     # layout on the root window
-    root.columnconfigure(0, weight=4)
+    root.columnconfigure(0, weight=1)
     root.columnconfigure(1, weight=1)
 
     input_frame = create_input_frame(root)

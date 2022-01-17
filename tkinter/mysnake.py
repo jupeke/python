@@ -52,9 +52,11 @@ class App(tk.Tk):
 
     def finish(self):
         self.end = True
+        for widget in self.widgets():
+            widget.destroy()
         mytext = "The End! Snake length: {}".format(self.snake.len)
         lbl = ttk.Label(text=mytext)
-        lbl.grid(column=0, row=0,  columnspan=10, ipadx=5,ipady=5)
+        lbl.grid(column=0, row=0,  ipadx=5,ipady=5)
 
 class Apple:
     # power == how many more squares you get while touching
@@ -125,7 +127,7 @@ class Snake:
         if(len(self.tail) > self.len-1):
             # Change color of the old last (if exists):
             if (self.len > 1):
-                last_tuple = self.tail[-1]
+                last_tuple = self.tail[-1]  # Last element of list
                 self.change_to(last_tuple[0], last_tuple[1], False)
             # Remove the last of tail
             self.tail.pop()
