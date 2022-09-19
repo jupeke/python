@@ -31,6 +31,7 @@ def functionname(function):
 #print(functionname(repeat("ih",3)))
 
 # Returns a list of integers found in the string or an empty list if no found.
+# NOT FINISHED
 def get_ints_of_string(str):
     ints = list()
     return ints
