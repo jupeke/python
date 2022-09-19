@@ -1,0 +1,7 @@
+print("--------------------------------")
+print()
+print("How are you?")
+answer = input()
+print("You wrote: "+answer)
+print()
+print("--------------------------------")
