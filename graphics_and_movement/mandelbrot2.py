@@ -5,7 +5,7 @@ MAX_COLOR = 255
 WIN_WIDTH = 800
 WIN_HEIGHT = 800
 RATIO = 4 # unit step on screen in pxs = win_width/ratio * zoom_factor
-POINTS_TO_DRAW = 200    # Number of points to draw
+POINTS_TO_DRAW = 500    # Number of points to draw
 class MainProgram():
     points = []
     def __init__(self):
@@ -219,12 +219,13 @@ class ComplexPoint:
     def get_mb_testpoints(self,draw):
         self.is_mb_point = True # Default first
         testpoint = self.cnumber
+        limit = 100
         for i in range(self.main.mb_test_depth):
             cpoint = ComplexPoint(testpoint, self.main)
 
             # Test if is a Mandelbrot number. The limit
             # is 2 but with a big number we get more testpoints:
-            if self.is_mb_point==True and cpoint.modulus() > 100:
+            if self.is_mb_point==True and cpoint.modulus() > limit:
                 self.is_mb_point = False
                 self.escape_threshold = int(i+1)
                 break
