@@ -3,7 +3,7 @@
 finish = False
 while finish == False:
     print()
-    message = input("Give a message, please: ")
+    message = input("Give a message, please: \n")
 
     # This way the input comes on its own row:
     print("Give a number, please")
@@ -13,7 +13,7 @@ while finish == False:
         number = int(input())   # Error if input not good
         for i in range(number):
             print(str(i+1)+": ",message)
-    except ValueError:dfg
+    except ValueError:
         print("Not an integer!")
 
     m = input("Want to try again (yes/no)? ")
