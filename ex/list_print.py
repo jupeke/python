@@ -1,23 +1,38 @@
-# Creates e new list:
+# Print the elements in your own way:
+def showlist(comment,mylist):
+    counter = 1
+    output = comment+":\n"
+    for elem in mylist:
+        output += "{}: {} \n".format(counter, elem)
+        counter = counter + 1   # Important!
+    return output
+
+# Create e new list:
 list1 = ["Jani", "Arto", "Mari", "Maija"]
 print() # An empty line.
 
 print("Default print:")
 print(list1)
-print() # An empty line.
+print() 
+
+print(showlist("Custom print",list1))
 
 print("First element printed:")
 print(list1[0])
-print() # An empty line.
+print() 
 
 print("Last element printed:")
 print(list1[-1])
-print() # An empty line.
+print() 
 
-print("Elements preceded by a number:")
-counter = 1
-for elem in list1:
-    print (counter,":", elem)   # Method 1: adds spaces around ":"!
-    print (str(counter) + ": " + elem) # Method 2
-    print ("{}: {}".format(counter, elem)) # Method 3
-    counter = counter + 1
+# Add an element to the end of the list:
+list1.append("Student")
+print(showlist("Student added:",list1))
+
+# Remove the last element
+list1.pop()
+print(showlist("Last element removed",list1))
+
+# Remove the third element
+list1.pop(2)
+print(showlist("The 3rd element removed",list1))
