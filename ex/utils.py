@@ -35,3 +35,6 @@ def functionname(function):
 def get_ints_of_string(str):
     ints = list()
     return ints
+
+def nice(str):
+    print("\n\n\n"+str+"\n\n\n")
