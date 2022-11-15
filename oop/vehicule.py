@@ -13,7 +13,7 @@ class Vehicule:
         return "This vehicule is a {}, is {}, weighs {} kg and it {}.". \
             format(self.name, self.color, self.mass, self.nature_impact)
 
-# Class that herits the Vehicule class:
+# Class that inherits the Vehicule class:
 class Bicycle(Vehicule):
     # Class variable, common for all objects:
     nature_impact = "does not pollute"
