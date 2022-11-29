@@ -4,8 +4,8 @@ from tkinter import ttk
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        #self.geometry("240x100")
-        self.title('My window')
+        #self.geometry("220x100")
+        self.title('Multiply')
         self.resizable(0, 0)
         self.widgets = self.create_widgets()
 
