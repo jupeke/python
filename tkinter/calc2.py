@@ -24,14 +24,18 @@ class App(tk.Tk):
         n2_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
         # Buttons
-        mybutton = ttk.Button(self, text="+", command=self.add)
-        mybutton.grid(column=0, row=2, columnspan=1, sticky=tk.E, padx=0, pady=0)
+        '''mybutton = ttk.Button(self, text="+", command=self.add)
+        mybutton.grid(column=0, row=2, columnspan=1, sticky=tk.W, padx=0, pady=0)
         mybutton = ttk.Button(self, text="-", command=self.subtract)
-        mybutton.grid(column=1, row=2, columnspan=1, sticky=tk.W, padx=0, pady=0)
+        mybutton.grid(column=0, row=2, columnspan=1, sticky=tk.E, padx=0, pady=0)
         mybutton = ttk.Button(self, text="*", command=self.multiply)
-        mybutton.grid(column=0, row=3, columnspan=1, sticky=tk.E, padx=0, pady=0)
+        mybutton.grid(column=0, row=3, columnspan=1, sticky=tk.W, padx=0, pady=0)
         mybutton = ttk.Button(self, text="/", command=self.divide)
-        mybutton.grid(column=1, row=3, columnspan=1, sticky=tk.W, padx=0, pady=0)
+        mybutton.grid(column=0, row=3, columnspan=1, sticky=tk.E, padx=0, pady=0)
+        '''
+        btn_frame = ttk.Frame(self)
+        mybutton = tk.Button(master=btn_frame, text="/", width=2,height=1)
+        btn_frame.grid(column=0, row=3, columnspan=2, sticky=tk.S, padx=5, pady=5)
 
         # Label
         result_label = ttk.Label(self, text="Result will be shown here")
@@ -58,14 +62,26 @@ class App(tk.Tk):
             result = "{} x {} = {}".format(numbers[0],numbers[1],numbers[0]*numbers[1])
         self.widgets[5].config(text=result, background="pink")
     def add(self):
-        result = "Not yet implemented"
-        self.widgets[5].config(text=result, background="pink")
+        numbers = self.get_numbers()
+        if self.BAD_NUMBER in numbers:
+            result = "Bad or missing number!"
+        else:
+            result = "{} + {} = {}".format(numbers[0],numbers[1],numbers[0]+numbers[1])
+        self.widgets[5].config(text=result, background="green")
     def subtract(self):
-        result = "Not yet implemented"
-        self.widgets[5].config(text=result, background="pink")
+        numbers = self.get_numbers()
+        if self.BAD_NUMBER in numbers:
+            result = "Bad or missing number!"
+        else:
+            result = "{} - {} = {}".format(numbers[0],numbers[1],numbers[0]-numbers[1])
+        self.widgets[5].config(text=result, background="lightblue")
     def divide(self):
-        result = "Not yet implemented"
-        self.widgets[5].config(text=result, background="pink")
+        numbers = self.get_numbers()
+        if self.BAD_NUMBER in numbers:
+            result = "Bad or missing number!"
+        else:
+            result = "{} : {} = {}".format(numbers[0],numbers[1],numbers[0]/numbers[1])
+        self.widgets[5].config(text=result, background="yellow")
 
 if __name__ == "__main__":
     app = App()
