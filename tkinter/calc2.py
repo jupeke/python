@@ -23,7 +23,7 @@ class App(tk.Tk):
         n2_entry = ttk.Entry(self)
         n2_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
-        # Buttons
+        # Buttons. Note that ttk.Button does not support width / height.
         '''mybutton = ttk.Button(self, text="+", command=self.add)
         mybutton.grid(column=0, row=2, columnspan=1, sticky=tk.W, padx=0, pady=0)
         mybutton = ttk.Button(self, text="-", command=self.subtract)
@@ -33,15 +33,25 @@ class App(tk.Tk):
         mybutton = ttk.Button(self, text="/", command=self.divide)
         mybutton.grid(column=0, row=3, columnspan=1, sticky=tk.E, padx=0, pady=0)
         '''
-        btn_frame = ttk.Frame(self)
-        mybutton = tk.Button(master=btn_frame, text="/", width=2,height=1)
+        btn_frame = tk.Frame(self, bg='pink')
+
+        plusbutton = tk.Button(btn_frame, text="+", width=2,height=1, command=self.add)
+        plusbutton.grid(row=0, column=0, padx=0, pady=0) # btn_frame has its own grid.
+        minusbutton = tk.Button(btn_frame, text="-", width=2,height=1, command=self.subtract)
+        minusbutton.grid(row=0, column=1, padx=0, pady=0)
+        timesbutton = tk.Button(btn_frame, text="*", width=2,height=1, command=self.multiply)
+        timesbutton.grid(row=1, column=0, padx=0, pady=0)
+        dividebutton = tk.Button(btn_frame, text="/", width=2,height=1, command=self.divide)
+        dividebutton.grid(row=1, column=1, padx=0, pady=0)
+        
+        # Set the frame into the main grid:
         btn_frame.grid(column=0, row=3, columnspan=2, sticky=tk.S, padx=5, pady=5)
 
         # Label
         result_label = ttk.Label(self, text="Result will be shown here")
         result_label.grid(column=0, row=4, columnspan=2, padx=5, pady=10)
 
-        widgets = [n1_lbl,n1_lbl, n1_entry,n2_entry,mybutton, result_label]
+        widgets = [n1_lbl,n1_lbl, n1_entry,n2_entry,btn_frame, result_label]
         return widgets
     #
     def get_numbers(self):
