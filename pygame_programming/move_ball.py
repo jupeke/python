@@ -1,3 +1,4 @@
+# Install pygame (at school 2023): py -m pip install pygame
 # Import and initialize the pygame library
 import pygame
 
@@ -14,23 +15,30 @@ from pygame.locals import (
 )
 pygame.init()
 
-# Set up the drawing window
+# Set up variables and the drawing window
+base_speed = 2
+speed_x = 2
+speed_y = 2
 scr_width = 800
 scr_len = 800
-screen = pygame.display.set_mode([scr_wid, scr_len])
+screen = pygame.display.set_mode([scr_width, scr_len])
 w = scr_width/2 # x coordinate
-y = scr_width/2 # y coordinate
+h = scr_width/2 # y coordinate
+x = w
+y = h
 # Run until the user asks to quit
 running = True
 while running:
-
-    # Did the user click the window close button?
+    pygame.time.delay(20)
+    x += speed_y
+    y += speed_y
     for event in pygame.event.get():
         # Did the user hit a key?
         if event.type == KEYDOWN:
             # Direction?
             if event.key == K_DOWN:
-                running = False
+                speed_y = base_speed
+                speed_x = 0
         if event.type == pygame.QUIT:
             running = False
 
@@ -38,7 +46,7 @@ while running:
     screen.fill((100, 255, 100))
 
     # Draw a solid circle in the center
-    pygame.draw.circle(screen, (255, 0, 255), (w, h), 20)
+    pygame.draw.circle(screen, (255, 0, 255), (x, y), 20)
 
     # Flip the display
     pygame.display.flip()
