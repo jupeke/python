@@ -22,12 +22,12 @@ canvas.create_oval(20,20,40,40, fill="pink", tag="circle")
 canvas.create_oval(-10,-10,70,70, fill="", outline="", tag="circle")
 
 # Move the ball
-xspeed=yspeed=5
+xspeed=yspeed=2
 
 def move_ball():
    global xspeed, yspeed
 
-   canvas.move("circle", 0, yspeed)
+   canvas.move("circle", xspeed, yspeed)
    (leftpos, toppos, rightpos, bottompos)=canvas.coords("circle")
    if leftpos <=0 or rightpos>=800:
       xspeed=-xspeed
