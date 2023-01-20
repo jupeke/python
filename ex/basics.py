@@ -2,11 +2,13 @@
 
 # A function that prints the message a number of times:
 def repeat(message, number):
-    print() # An empty line first. Looks better.
     for i in range(number):
         # Adds a growing number before the message:
         print(str(i+1)+": ",message)
-    print() # An empty line.
+
+# A function that prints the message a number of times:
+def repeat_string(text, separator, number):
+    print((text+separator) * (number-1)+text)
 
 finish = False
 while finish == False:
@@ -18,7 +20,7 @@ while finish == False:
     # Important: if ValueError, goes to except block.
     try:
         number = int(input())   # Error if input not good
-        repeat(message, number) # Function call
+        repeat_string(message, " and ", number) # Function call
     except ValueError:
         print("Not an integer!")
 
