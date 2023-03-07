@@ -29,8 +29,8 @@ y = h
 # Run until the user asks to quit
 running = True
 while running:
-    pygame.time.delay(20)
-    x += speed_y
+    pygame.time.delay(50)
+    x += speed_x
     y += speed_y
     for event in pygame.event.get():
         # Did the user hit a key?
@@ -39,6 +39,15 @@ while running:
             if event.key == K_DOWN:
                 speed_y = base_speed
                 speed_x = 0
+            elif event.key == K_UP:
+                speed_y = -base_speed
+                speed_x = 0
+            elif event.key == K_LEFT:
+                speed_y = 0
+                speed_x = -base_speed
+            elif event.key == K_RIGHT:
+                speed_y = 0
+                speed_x = base_speed
         if event.type == pygame.QUIT:
             running = False
 
