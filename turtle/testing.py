@@ -1,8 +1,9 @@
 import turtle
-count = 0
-while count < 100:
-  turtle.forward(20)
-  turtle.left(30)
-  count = count + 1
+
+turtle.forward(200)
+turtle.left(60)
+turtle.forward(200)
+turtle.right(60)  
+turtle.forward(200)
 
 turtle. Screen(). exitonclick()
