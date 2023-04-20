@@ -1,4 +1,5 @@
 import turtle
+import math
 
 # Class definition:
 class Artist:
@@ -7,6 +8,11 @@ class Artist:
     def __init__(self, pcolor, fcolor, psize, speed):
         self.t.pen(pencolor = pcolor, fillcolor = fcolor, 
                    pensize = psize, speed = speed)
+        self.screenwidth = 800
+        self.screenheight = 800
+        self.screen = self.t.getscreen()
+        self.screen.setup(self.screenwidth, self.screenheight)
+        self.screen.bgcolor("pink")
 
     def setcolor(self, newcolor):
         self.t.pen(pencolor = newcolor)
@@ -23,130 +29,82 @@ class Artist:
     def getpensize(self):
         return self.t.pensize
     
+    def line(self, startx, starty, len):
+        self.jumpto(startx,starty)
+        self.t.forward(len)
+
     # Go to (x,y) without drawing a line:
     def jumpto(self, x,y):
         self.t.penup()
         self.t.goto(x,y)
         self.t.pendown()
 
-    def line(startx, starty):
-    jumpto(startx,starty)
-    t.forward(200)
-
-    def square(self, fillme,startx, starty, len):
-        jumpto(startx,starty)
+    def square(self, fillme,startx, starty, sidelen):
+        self.jumpto(int(startx-sidelen/2),int(starty+sidelen/2))
         if fillme:
             self.t.begin_fill()
         for x in range(4):
-            self.t.forward(len)
-            self.right(90)
+            self.t.forward(sidelen)
+            self.t.right(90)
         if fillme:
-            self.end_fill()
+            self.t.end_fill()
 
-
-    def triangle(fillme,startx, starty):
-        jumpto(startx,starty)
+    def triangle(self, fillme,centerx, centery, sidelen):
+        height = math.sqrt(sidelen ** 2-((sidelen/2) ** 2))
+        self.jumpto(centerx - sidelen // 2,centery + height // 2) # // division and floor
         if fillme:
-            t.begin_fill()
+            self.t.begin_fill()
         for x in range(3):
-            t.forward(200)
-            t.right(120)
+            self.t.forward(sidelen)
+            self.t.right(120)
         if fillme:
-            t.end_fill()
+            self.t.end_fill()
 
-    def hexagon(fillme,startx, starty):
-        jumpto(startx,starty)
+    def hexagon(self, fillme,centerx, centery, sidelen):
+        height = math.sqrt(sidelen ** 2-((sidelen/2) ** 2))
+        self.jumpto(centerx-sidelen // 2,centery+height)
         if fillme:
-            t.begin_fill()
+            self.t.begin_fill()
         for x in range(6):
-            t.forward(100)
-            t.right(60)
+            self.t.forward(sidelen)
+            self.t.right(60)
         if fillme:
-            t.end_fill()
+            self.t.end_fill()
 
-    def dstar(fillme,startx, starty):
-        jumpto(startx,starty)
+    # Star of David:
+    def dstar(self, fillme,startx, starty, len):
+        self.jumpto(startx - len // 2,starty)
         if fillme:
-            t.begin_fill()
+            self.t.begin_fill()
         for x in range(5):
-            t.forward(200)
-            t.right(144)
+            self.t.forward(len)
+            self.t.right(144)
         if fillme:
-            t.end_fill()
+            self.t.end_fill()
 
+    def circle(self, fillme,centerx, centery, radius):
+        self.jumpto(centerx,centery-radius)
+        if fillme:
+            self.t.begin_fill()
+        self.t.circle(radius)
+        if fillme:
+            self.t.end_fill()
+    
+    def point(self, x, y, size):
+        self.jumpto(x,y)
+        self.t.dot(size)
+        
       
 # Create instances of the Car class:
-a = Artist("green", "lightblue", 5, 5)
+a = Artist("green", "yellow", 5, 5)
+a.screen.bgcolor("white")
+fillme = False
+#a.line(0,0,400)
+#a.square(fillme,0,0, 400)
+#a.circle(fillme, 0, 0, 200)
+#a.triangle(fillme,0, 0, 500)
+#a.hexagon(fillme,0, 0, 200)
+#a.point(0, 0, 500)
+a.dstar(fillme,0,0,300)
 
-t = turtle
-
-t.pen(pencolor="brown", fillcolor="orange", 
-      pensize=5, speed=3)
-
-t.bgcolor("pink")
-
-def line(startx, starty):
-    jumpto(startx,starty)
-    t.forward(200)
-
-def square(fillme,startx, starty):
-    jumpto(startx,starty)
-    if fillme:
-        t.begin_fill()
-    for x in range(4):
-        t.forward(200)
-        t.right(90)
-    if fillme:
-        t.end_fill()
-
-
-def triangle(fillme,startx, starty):
-    jumpto(startx,starty)
-    if fillme:
-        t.begin_fill()
-    for x in range(3):
-        t.forward(200)
-        t.right(120)
-    if fillme:
-        t.end_fill()
-
-def hexagon(fillme,startx, starty):
-    jumpto(startx,starty)
-    if fillme:
-        t.begin_fill()
-    for x in range(6):
-        t.forward(100)
-        t.right(60)
-    if fillme:
-        t.end_fill()
-
-def dstar(fillme,startx, starty):
-    jumpto(startx,starty)
-    if fillme:
-        t.begin_fill()
-    for x in range(5):
-        t.forward(200)
-        t.right(144)
-    if fillme:
-        t.end_fill()
-
-# Go to (x,y) without drawing a line:
-def jumpto(x,y):
-    t.penup()
-    t.goto(x,y)
-    t.pendown()
-
-width = 800
-height = 800
-screen = t.getscreen()
-screen.setup(width, height)
-
-fillme = True
-
-line(-300,350)
-square(fillme,100,350)
-triangle(fillme,-300, 50)
-hexagon(fillme,150, 50)
-dstar(fillme,-100,-200)
-
-t. Screen(). exitonclick()
+a.t.getscreen().exitonclick()
