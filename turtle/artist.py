@@ -13,6 +13,14 @@ class Artist:
         self.screen = self.t.getscreen()
         self.screen.setup(self.screenwidth, self.screenheight)
         self.screen.bgcolor("pink")
+    
+    # Returns the x coordinate of the current position of the turtle
+    def getx(self):
+        return self.t.pos()[0]
+    
+    # Returns the y coordinate of the current position of the turtle
+    def gety(self):
+        return self.t.pos()[1]
 
     def setcolor(self, newcolor):
         self.t.pen(pencolor = newcolor)
