@@ -37,15 +37,26 @@ class Artist:
     def getpensize(self):
         return self.t.pensize
     
-    def line(self, startx, starty, len):
-        self.jumpto(startx,starty)
-        self.t.forward(len)
+    # Direction: "up", "down", "right", "left"
+    def setdir(self, dir):
+        if (dir == "up"):
+            self.t.setheading(270)
+        elif (dir == "right"):
+            self.t.setheading(0)
+        elif (dir == "down"):
+            self.t.setheading(90)
+        elif (dir == "left"):
+            self.t.setheading(180)
 
     # Go to (x,y) without drawing a line:
     def jumpto(self, x,y):
         self.t.penup()
         self.t.goto(x,y)
         self.t.pendown()
+
+    def line(self, startx, starty, len):
+        self.jumpto(startx,starty)
+        self.t.forward(len)
 
     def square(self, fillme,startx, starty, sidelen):
         self.jumpto(int(startx-sidelen/2),int(starty+sidelen/2))

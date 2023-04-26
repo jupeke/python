@@ -6,9 +6,9 @@ class Face(artist.Artist):
     pencolor = "green"
     fillcolor = "pink"
     pensize = 2
-    penspeed = 5
+    penspeed = 0
 
-    def __init__(self, mode):
+    def __init__(self):
         # runs the init of the parent class:
         super().__init__(
             self.pencolor, 
@@ -16,11 +16,21 @@ class Face(artist.Artist):
             self.pensize, 
             self.penspeed
         )
-        self.mode = mode
         self.screen.bgcolor(self.bgcolor)
-        self.makeface(self.mode)
+
+    def reset(self):
+        self.setcolor(self.pencolor)
+        self.setfillcolor(self.fillcolor)
+        self.setpensize(self.pensize)
+        self.jumpto(0,0)
+        self.setdir("right")
 
     def makeface(self, mode):
+        # Clear old face
+        self.t.clear()
+        # Reset values
+        self.reset()
+
         # Face
         self.circle(True, 0, 0, 300)
         
@@ -60,5 +70,28 @@ class Face(artist.Artist):
                 x = self.getx()
                 y = self.gety()
 
-f = Face("sad")         
+        elif (mode == "neutral"):
+            x = -220
+            y = -50
+            self.setpensize(20)
+            self.setcolor("red")
+            self.line(x, y, 440)
+                
+
+
+    def makehappyface(self):
+        self.makeface("happy")
+    def makesadface(self):
+        self.makeface("sad")
+    def makeneutralface(self):
+        self.makeface("neutral")
+
+f = Face()
+
+# Listen to keyboard events: 
+f.screen.listen()
+# Bind key to methods:
+f.screen.onkeypress(f.makesadface, 's')
+f.screen.onkeypress(f.makehappyface, 'h')
+f.screen.onkeypress(f.makeneutralface, 'n')
 f.screen.exitonclick()
