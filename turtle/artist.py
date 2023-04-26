@@ -40,11 +40,11 @@ class Artist:
     # Direction: "up", "down", "right", "left"
     def setdir(self, dir):
         if (dir == "up"):
-            self.t.setheading(270)
+            self.t.setheading(90)
         elif (dir == "right"):
             self.t.setheading(0)
         elif (dir == "down"):
-            self.t.setheading(90)
+            self.t.setheading(270)
         elif (dir == "left"):
             self.t.setheading(180)
 
