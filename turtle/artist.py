@@ -4,6 +4,7 @@ import math
 # Class definition:
 class Artist:
     t = turtle.Turtle()
+    turtle = turtle
 
     def __init__(self, pcolor, fcolor, psize, speed):
         self.t.pen(pencolor = pcolor, fillcolor = fcolor, 
@@ -12,7 +13,6 @@ class Artist:
         self.screenheight = 800
         self.screen = self.t.getscreen()
         self.screen.setup(self.screenwidth, self.screenheight)
-        
     
     # Returns the x coordinate of the current position of the turtle
     def getx(self):

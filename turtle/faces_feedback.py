@@ -94,4 +94,7 @@ f.screen.listen()
 f.screen.onkeypress(f.makesadface, 's')
 f.screen.onkeypress(f.makehappyface, 'h')
 f.screen.onkeypress(f.makeneutralface, 'n')
-f.screen.exitonclick()
+f.screen.onkeypress(f.t.clear, 'space')
+
+# Prevent immediate exit:
+f.turtle.mainloop()
