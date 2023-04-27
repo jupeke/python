@@ -97,4 +97,4 @@ f.screen.onkeypress(f.makeneutralface, 'n')
 f.screen.onkeypress(f.t.clear, 'space')
 
 # Prevent immediate exit:
-f.turtle.mainloop()
+f.donotautoexit()

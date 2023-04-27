@@ -14,6 +14,10 @@ class Artist:
         self.screen = self.t.getscreen()
         self.screen.setup(self.screenwidth, self.screenheight)
     
+    # Disables autoexit - the screen stays visible.
+    def donotautoexit(self):
+        self.turtle.mainloop()
+
     # Returns the x coordinate of the current position of the turtle
     def getx(self):
         return self.t.pos()[0]
