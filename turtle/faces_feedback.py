@@ -46,54 +46,45 @@ class Face(artist.Artist):
         self.point(-100, 100, 30)
 
         # Mouth:
-        if (mode == "happy"):
-            self.t.right(60)
-            x = -220
-            y = 0
-            self.setpensize(20)
-            self.setcolor("red")
-            for i in range(18):
-                self.line(x, y, 30)
-                self.t.left(7)
-                x = self.getx()
-                y = self.gety()
-
-        elif (mode == "sad"):
-            self.t.left(60)
-            x = -220
-            y = -150
-            self.setpensize(20)
-            self.setcolor("red")
-            for i in range(18):
-                self.line(x, y, 30)
-                self.t.right(7)
-                x = self.getx()
-                y = self.gety()
-
-        elif (mode == "neutral"):
-            x = -220
-            y = -50
-            self.setpensize(20)
-            self.setcolor("red")
-            self.line(x, y, 440)
+        self.makemouth(mode, 0, -120)
                 
-
-
-    def makehappyface(self):
-        self.makeface("happy")
-    def makesadface(self):
-        self.makeface("sad")
-    def makeneutralface(self):
-        self.makeface("neutral")
+    # Creates a mouth with a starting point at the horizontal center.            
+    def makemouth(self, grade, x, y):
+        self.jumpto(x,y)
+        self.setdir("right")
+        self.setpensize(20)
+        self.setcolor("red")
+        x_var = x
+        y_var = y
+        for i in range(int(grade/2)+10):
+            self.line(x_var, y_var, 20)
+            self.t.left(grade-5)
+            x_var = self.getx()
+            y_var = self.gety()
+        
+        self.jumpto(x,y)
+        self.setdir("left")
+        x_var = x
+        y_var = y
+        for i in range(int(grade/2)+10):
+            self.line(x_var, y_var, 20)
+            self.t.right(grade-5)
+            x_var = self.getx()
+            y_var = self.gety()
 
 f = Face()
 
 # Listen to keyboard events: 
 f.screen.listen()
-# Bind key to methods:
-f.screen.onkeypress(f.makesadface, 's')
-f.screen.onkeypress(f.makehappyface, 'h')
-f.screen.onkeypress(f.makeneutralface, 'n')
+
+# Bind key to methods. Note the cleve way to 
+# pass an argument by using the lambda function.
+# Hint found at https://www.codetoday.co.uk/post/how-to-pass-the-key-pressed-to-the-function-when-using-onkeypress-in-python-s-turtle-module
+for n in range(1, 10):  # 1-9
+    f.screen.onkeypress(lambda n=n: f.makeface(n), str(n))
+
+# The 10 you get by pressing 0:
+f.screen.onkeypress(lambda n=10: f.makeface(n), '0')
 f.screen.onkeypress(f.t.clear, 'space')
 
 # Prevent immediate exit:
