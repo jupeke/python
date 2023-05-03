@@ -35,18 +35,30 @@ class Face(artist.Artist):
         self.circle(True, 0, 0, 300)
         
         # Eyes:
+        cx1 = -100
+        cx2 = 100
+        cy = 100
         self.setcolor("darkgreen")
-        self.circle(False, 100, 100, 52)
-        self.circle(False, -100, 100, 52)
+        self.circle(False, cx1, cy, 52)
+        self.circle(False, cx2, cy, 52)
         self.setcolor("lightgreen")
-        self.point(100, 100, 100)
-        self.point(-100, 100, 100)
+        self.point(cx1, cy, 100)
+        self.point(cx2, cy, 100)
         self.setcolor("black")
-        self.point(100, 100, 30)
-        self.point(-100, 100, 30)
+        self.point(cx1, cy, 30)
+        self.point(cx2, cy, 30)
 
+        # Strays around eyes.
+        if (mode > 8):
+            self.makestrays(cx1, cy, 52, 10, "yellow")
+            self.makestrays(cx2, cy, 52, 10, "yellow")
+        
         # Mouth:
         self.makemouth(mode, 0, -120)
+
+        # Strays around the head.
+        if (mode > 9):
+            self.makestrays(0, 0, 330, 40, "red")
                 
     # Creates a mouth with a starting point at the horizontal center.            
     def makemouth(self, grade, x, y):
@@ -54,11 +66,14 @@ class Face(artist.Artist):
         self.setdir("right")
         self.setpensize(20)
         self.setcolor("red")
+        numberofbits = int(grade/1.5)+10
+        linelength = 19
+        angle = grade-5
         x_var = x
         y_var = y
-        for i in range(int(grade/2)+10):
-            self.line(x_var, y_var, 20)
-            self.t.left(grade-5)
+        for i in range(numberofbits):
+            self.line(x_var, y_var, linelength)
+            self.t.left(angle)
             x_var = self.getx()
             y_var = self.gety()
         
@@ -66,12 +81,29 @@ class Face(artist.Artist):
         self.setdir("left")
         x_var = x
         y_var = y
-        for i in range(int(grade/2)+10):
-            self.line(x_var, y_var, 20)
-            self.t.right(grade-5)
+        for i in range(numberofbits):
+            self.line(x_var, y_var, linelength)
+            self.t.right(angle)
             x_var = self.getx()
             y_var = self.gety()
 
+    # Makes short lines around a circle with radius rad
+    # center point at (cx, cy). The parameter straylen
+    # gives the length of each line, and color its color.
+    def makestrays(self, cx, cy, rad, straylen, color):
+        self.setpensize(3)
+        self.setcolor(color)
+        self.setdir("up")
+        gapindecrees = 40
+        numboflines = int(360/gapindecrees)
+        for i in range(numboflines):
+            self.jumpto(cx,cy)
+            self.t.right(gapindecrees)
+            self.t.penup()
+            self.t.forward(rad+10)
+            self.t.pendown()
+            self.t.forward(straylen)
+       
 f = Face()
 
 # Listen to keyboard events: 

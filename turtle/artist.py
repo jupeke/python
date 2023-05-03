@@ -117,17 +117,3 @@ class Artist:
         self.jumpto(x,y)
         self.t.dot(size)
         
-      
-# Create instances of the Car class:
-#a = Artist("green", "yellow", 5, 5)
-#a.screen.bgcolor("white")
-#fillme = False
-#a.line(0,0,400)
-#a.square(fillme,0,0, 400)
-#a.circle(fillme, 0, 0, 200)
-#a.triangle(fillme,0, 0, 500)
-#a.hexagon(fillme,0, 0, 200)
-#a.point(0, 0, 500)
-#a.dstar(fillme,0,0,300)
-
-#a.screen.exitonclick()
