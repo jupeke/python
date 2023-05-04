@@ -50,15 +50,15 @@ class Face(artist.Artist):
 
         # Strays around eyes.
         if (mode > 8):
-            self.makestrays(cx1, cy, 52, 10, "yellow")
-            self.makestrays(cx2, cy, 52, 10, "yellow")
+            self.strays(cx1, cy, 52, 40, 10,"yellow")
+            self.strays(cx2, cy, 52, 40, 10,"yellow")
         
         # Mouth:
         self.makemouth(mode, 0, -120)
 
         # Strays around the head.
         if (mode > 9):
-            self.makestrays(0, 0, 330, 40, "red")
+            self.strays(0, 0, 330, 40, 40,"red")
                 
     # Creates a mouth with a starting point at the horizontal center.            
     def makemouth(self, grade, x, y):
@@ -86,23 +86,6 @@ class Face(artist.Artist):
             self.t.right(angle)
             x_var = self.getx()
             y_var = self.gety()
-
-    # Makes short lines around a circle with radius rad
-    # center point at (cx, cy). The parameter straylen
-    # gives the length of each line, and color its color.
-    def makestrays(self, cx, cy, rad, straylen, color):
-        self.setpensize(3)
-        self.setcolor(color)
-        self.setdir("up")
-        gapindecrees = 40
-        numboflines = int(360/gapindecrees)
-        for i in range(numboflines):
-            self.jumpto(cx,cy)
-            self.t.right(gapindecrees)
-            self.t.penup()
-            self.t.forward(rad+10)
-            self.t.pendown()
-            self.t.forward(straylen)
        
 f = Face()
 

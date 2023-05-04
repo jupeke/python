@@ -116,4 +116,22 @@ class Artist:
     def point(self, x, y, size):
         self.jumpto(x,y)
         self.t.dot(size)
+
+    # Makes short lines around a circle with radius rad
+    # and center point at (cx, cy). The parameter straylen
+    # gives the length of each line, and color its color.
+    # gap is an angle in decrees between the strays.
+    def strays(self, cx, cy, rad, gap, straylen, color):
+        self.setpensize(3)
+        self.setcolor(color)
+        self.setdir("up")
+        gapindecrees = gap
+        numboflines = int(360/gapindecrees)
+        for i in range(numboflines):
+            self.jumpto(cx,cy)
+            self.t.right(gapindecrees)
+            self.t.penup()
+            self.t.forward(rad+10)
+            self.t.pendown()
+            self.t.forward(straylen)
         
