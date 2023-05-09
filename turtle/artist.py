@@ -62,8 +62,8 @@ class Artist:
         self.jumpto(startx,starty)
         self.t.forward(len)
 
-    def square(self, fillme,startx, starty, sidelen):
-        self.jumpto(int(startx-sidelen/2),int(starty+sidelen/2))
+    def square(self, fillme,cx, cy, sidelen):
+        self.jumpto(int(cx-sidelen/2),int(cy+sidelen/2))
         if fillme:
             self.t.begin_fill()
         for x in range(4):
