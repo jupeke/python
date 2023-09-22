@@ -9,8 +9,37 @@ input2 = input("Give another number ")
 # Good?
 result1 = input1 + input2
 
-printnicemini("The sum of the inputs: {} + {} = {}".format(input1, input2, result1))
+printnicemini("The sum of the inputs:")
+printnicemini("{} + {} = {}".format(input1, input2, result1))
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print()
 '''
 number1 = int(input1)
 number2 = int(input2)
@@ -18,7 +47,7 @@ result2 = number1 + number2
 printnicemini("The sum of the numbers: {} + {} = {}".format(number1, number2, result2))
 '''
 
-print()
+
 
 
 '''
