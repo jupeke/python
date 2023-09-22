@@ -11,4 +11,4 @@ def repeat_mess(number, message):
 
 number = input("How many times?")
 message = input("What message to repeat?")
-lib.nice(repeat_mess(int(number), message))
+lib.printnice(repeat_mess(int(number), message))

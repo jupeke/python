@@ -7,4 +7,4 @@ def repeat_mess(number, message):
         counter = counter + 1
     return output
 
-lib.nice(repeat_mess(12, "Ok?"))
+lib.printnice(repeat_mess(12, "Ok?"))
